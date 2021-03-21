@@ -1,0 +1,132 @@
+.btnEdit {
+  background-color: black;
+  width: 80px;
+}
+
+.div2 {
+  background-color: white;
+  height: 100%;
+}
+
+.left {
+  padding-bottom: 40px;
+}
+
+.left button {
+  margin-top: -50px;
+}
+
+.chekout {
+  text-align: right;
+}
+
+.bdg {
+  color: white;
+  margin-right: 80px;
+  height: 21px;
+  width: 25px;
+  font-size: 11px;
+  padding-top: 4px;
+}
+
+.back {
+  margin-right: 80px;
+  margin-top: 20px;
+  color: black;
+}
+
+.main p {
+  display: block;
+}
+
+.rightDetail {
+  margin-left: 20px;
+}
+
+.name-size {
+  font-size: 25px;
+  margin-bottom: 3px;
+  font-weight: 500;
+  display: block;
+  margin-right: 20px;
+}
+
+.diskon {
+  font-size: 30px;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.normal {
+  margin-top: -10px;
+  font-size: 12px;
+}
+
+.lorem1 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  margin-right: 20px;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.size {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.55);
+  margin-bottom: 15px;
+}
+
+.size select {
+  border: none;
+  color: black;
+  font-family: "arial";
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.editimg {
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 15px;
+}
+
+.navProduct {
+  background-color: rgba(231, 240, 242, 1);
+}
+
+.deskripsi {
+}
+
+.buyOption {
+  width: 300px;
+  height: 350px;
+  background-color: white;
+  border-radius: 15px;
+  border: 2px solid rgba(231, 240, 242, 1);
+  padding: 10px;
+}
+
+.storeName {
+  border-top: 2px solid rgba(231, 240, 242, 1);
+  border-bottom: 2px solid rgba(231, 240, 242, 1);
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.buyOption .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logoutbtn2 {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.chekout {
+  margin-right: 40px;
+}
+

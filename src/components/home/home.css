@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.div1 {
+  background: linear-gradient(to left, white 60%, rgba(231, 240, 242, 1) 40%);
+  height: 100vh;
+}
+
+.nav {
+  background: linear-gradient(to left, white 60%, rgba(231, 240, 242, 1) 40%);
+  padding-bottom: 30px;
+}
+
+.user {
+  font-weight: 500;
+  font-size: 15px;
+  margin-right: 50px;
+}
+
+.list1 {
+  list-style: none;
+  font-size: 12px;
+  margin-bottom: 15px;
+  text-align: right;
+  margin-right: 50px;
+}
+
+.list1 a {
+  text-decoration: none;
+  color: #000004;
+  font-family: "Ubuntu", arial;
+  font-weight: 500px;
+}
+
+.row1 {
+  font-family: "montserrat", arial;
+  font-size: 60px;
+  float: left;
+}
+
+.row1 p {
+  margin-left: 50px;
+  color: black;
+  margin-bottom: -0px;
+}
+
+.row2 {
+}
+
+.btnShop {
+  margin-left: 50px;
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: black;
+  margin-top: 25px;
+}
+
+.text p {
+  text-align: right;
+  font-size: 36px;
+  color: black;
+  margin-right: 50px;
+  padding-top: 30px;
+}
+
+.miniText {
+  text-align: right;
+}
+
+.miniText p {
+  font-size: 12px;
+  margin-right: 50px;
+}
+
+.loginbtn {
+  background-color: black;
+  margin-right: 30px;
+}
+
+.logoutbtn {
+  color: black;
+  margin-right: 30px;
+}
+
+.userIcon {
+  margin-top: 10px;
+}
+
+.userIcon img {
+  margin-top: -5px;
+  margin-left: 25px;
+}
+
+.userIcon span {
+  margin-left: 7px;
+}

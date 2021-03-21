@@ -1,0 +1,167 @@
+.user2 {
+  margin-top: -20px;
+  margin-right: 15px;
+}
+
+.saldo {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.value {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.new {
+  font-size: 35px;
+  margin-top: 10px;
+  color: black;
+}
+
+.ed {
+  font-size: 20px;
+  margin-bottom: 35px;
+  margin-left: 20px;
+}
+
+.marg {
+  margin-bottom: 20px;
+}
+
+.upload {
+  width: 100px;
+  display: none;
+}
+
+.addimg {
+  border: solid 2px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.edtlist {
+  width: 550px;
+  margin-right: 15px;
+}
+
+.minMrgin {
+  margin-bottom: -50px;
+}
+
+.minMrgin img {
+  width: 100px;
+  height: 100px;
+}
+
+.minMrgin .n {
+  margin-right: 20px;
+}
+
+.mrgTop {
+  margin-top: 120px;
+}
+
+.margn {
+  margin-right: 20px;
+}
+
+.roundImg {
+  border-radius: 10px;
+}
+
+#upload {
+  display: none;
+}
+
+#upload2 {
+  display: none;
+}
+
+.top {
+  margin-top: 150px;
+}
+
+.w {
+  width: 800px;
+  margin-bottom: 40px;
+  margin-top: -30px;
+}
+
+.mright {
+  margin-right: 70px;
+}
+
+.delBtn img {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.m {
+  width: 300px;
+}
+
+.incHigh {
+  height: 100%;
+}
+
+.cnt {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cnt img {
+  width: 110px;
+  height: 110px;
+}
+
+.delImg {
+  font-size: 11px;
+  width: 50px;
+  height: 20px;
+}
+
+.delImg p {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: -8px;
+}
+
+.uplProses {
+  width: 100px;
+  height: 100px;
+}
+
+.uplProses img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 35px;
+}
+
+.sizeBtn {
+  font-size: 12px;
+  background-color: white;
+  margin-right: 10px;
+  width: 100px;
+  border-radius: 5px;
+  height: 28px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.sizeBtn2 {
+  font-size: 16px;
+  margin-right: 10px;
+  width: 30px;
+  border-radius: 5px;
+  height: 28px;
+  text-align: center;
+}
+
+.btnAdd {
+  width: 100%;
+}

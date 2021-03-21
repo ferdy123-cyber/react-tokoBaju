@@ -1,0 +1,70 @@
+.listCart {
+}
+
+.marginR {
+  margin-right: 50px;
+}
+
+.prdName {
+  font-size: 20px;
+}
+
+.prdPrice {
+  font-size: 14px;
+  margin-top: -10px;
+  font-weight: bold;
+}
+
+.bottomCart span {
+  margin-left: 15px;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.rmv p {
+  margin-top: -4px;
+}
+
+.bottomCart button {
+  height: 25px;
+  font-size: 12px;
+  margin-left: 20px;
+}
+
+.chartLand {
+  margin-top: 120px;
+  margin-left: 100px;
+}
+
+.paymentBox {
+  position: fixed;
+  right: 0px;
+  margin-top: 80px;
+  margin-right: 100px;
+}
+
+.paymnt {
+  margin-top: 120px;
+}
+
+.prc {
+  text-align: right;
+}
+
+.e {
+  margin-bottom: 15px;
+}
+
+.e button {
+  margin-right: 10px;
+}
+
+.btm {
+  margin-top: 240px;
+}
+
+.btm button {
+  margin-top: 30px;
+  width: 80px;
+}
