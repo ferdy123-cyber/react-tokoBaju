@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import UserManage from "../user-manage";
-import errImg from "../../img/error-image-generic.png";
 
 const Product = (props) => {
   const {
@@ -129,26 +128,17 @@ const Product = (props) => {
             <Carousel>
               {detailProduct.images &&
                 detailProduct.images.map((e) => {
-                  if (e.url !== null) {
-                    return (
-                      <Carousel.Item interval={1800}>
-                        <img
-                          className="editimg img-fluid d-block w-100 "
-                          src={e.url}
-                          alt="First slide"
-                        />
-                      </Carousel.Item>
-                    );
-                  }
+                  return (
+                    <Carousel.Item interval={1800}>
+                      <img
+                        className="editimg img-fluid d-block w-100 "
+                        src={e.url}
+                        alt="First slide"
+                      />
+                    </Carousel.Item>
+                  );
                 })}
             </Carousel>
-          )}
-          {!(detailProduct.images !== null) && (
-            <img
-              className="editimg img-fluid d-block w-100 "
-              src={errImg}
-              alt="First slide"
-            />
           )}
         </div>
         <div className="right col-4">
