@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import shop from "../../img/shop.png";
 import UserManage from "../user-manage";
 import "../admin/style.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
-import add from "../../img/add2.png";
 import axios from "axios";
 import SizeHandle from "../admin/addSizeHandle";
 import AddImage from "../admin/addImage";

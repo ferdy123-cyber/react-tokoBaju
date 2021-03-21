@@ -1,5 +1,3 @@
-import { Redirect } from "react-router";
-
 const initialState = {
   user: {
     login_as: "",

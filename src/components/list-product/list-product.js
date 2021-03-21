@@ -23,7 +23,7 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
           <p class="navbar-brand user">
             {logedIn === "true" && (
               <div className="userIcon">
-                <img src={user} width="28px" height="28px" />
+                <img src={user} width="28px" height="28px" alt="user" />
                 <span>{userName}</span>
               </div>
             )}
@@ -61,11 +61,6 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                 aria-label="Search"
                 onChange={(e) => setInput(e.target.value)}
               />
-              {/* {logedIn === "true" && role === "admin" && (
-                <Link to='/manage-product'>
-                  <img src={chek} width="30px" height="30px" />
-                </Link>
-              )} */}
             </form>
           </div>
         </div>
@@ -76,19 +71,19 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
             <p>FEATURED</p>
             <ul>
               <li>
-                <a href="">T-SHIRT</a>
+                <p>T-SHIRT</p>
               </li>
               <li>
-                <a href="">JEANS</a>
+                <p>JEANS</p>
               </li>
               <li>
-                <a href="">HAT</a>
+                <p>HAT</p>
               </li>
               <li>
-                <a href="">SHOES</a>
+                <p>SHOES</p>
               </li>
               <li>
-                <a href="">JACKET</a>
+                <p>JACKET</p>
               </li>
             </ul>
           </div>
@@ -119,6 +114,7 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                             src={e.images[0].url}
                             width="145px"
                             height="145px"
+                            alt="productImg"
                           />
                         )}
                         {(e.images === null || e.images.length === 0) && (
@@ -127,6 +123,7 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                             src={errImg}
                             height="145px"
                             width="145px"
+                            alt="productImg"
                           />
                         )}
                         <h3>
@@ -154,19 +151,19 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
             <p>ALL</p>
             <ul>
               <li>
-                <a href="">FILTER 1</a>
+                <p>FILTER 1</p>
               </li>
               <li>
-                <a href="">FILTER 2</a>
+                <p>FILTER 2</p>
               </li>
               <li>
-                <a href="">FILTER 3</a>
+                <p>FILTER 3</p>
               </li>
               <li>
-                <a href="">FILTER 4</a>
+                <p>FILTER 4</p>
               </li>
               <li>
-                <a href="">FILTER 5</a>
+                <p>FILTER 5</p>
               </li>
             </ul>
           </div>

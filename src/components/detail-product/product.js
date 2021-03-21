@@ -1,11 +1,8 @@
 import "../detail-product/product.css";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
-import prev from "../../img/Vector1.png";
-import next from "../../img/Vector2.png";
+import { useEffect } from "react";
 import chek from "../../img/checkout.png";
-import logo from "../../img/icon.png";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import UserManage from "../user-manage";
@@ -21,7 +18,6 @@ const Product = (props) => {
     transaction,
     getTransaction,
     addOrder,
-    transactionById,
   } = props;
   useEffect(() => {
     toDetail(match.params.id);
@@ -118,6 +114,7 @@ const Product = (props) => {
                   src={chek}
                   width="25px"
                   height="25px"
+                  alt="cart"
                 />
               </Link>
             )}
@@ -131,8 +128,7 @@ const Product = (props) => {
           {detailProduct.images !== null && (
             <Carousel>
               {detailProduct.images &&
-                detailProduct.images.map((e, index) => {
-                  console.log(e.url);
+                detailProduct.images.map((e) => {
                   if (e.url !== null) {
                     return (
                       <Carousel.Item interval={1800}>

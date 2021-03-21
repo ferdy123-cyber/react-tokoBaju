@@ -10,7 +10,7 @@ const UserManage = () => {
     return (
       <div className="userIcon">
         <Link to="/seller">
-          <img src={user} width="28px" height="28px" />
+          <img src={user} width="28px" height="28px" alt="user" />
         </Link>
         <span>{userName}</span>
       </div>
@@ -18,7 +18,7 @@ const UserManage = () => {
   } else {
     return (
       <div className="userIcon">
-        <img src={user} width="28px" height="28px" />
+        <img src={user} width="28px" height="28px" alt="user" />
         <span>{userName}</span>
       </div>
     );

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../auth/auth.css";
 
 const Register = () => {
@@ -54,9 +53,9 @@ const Register = () => {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page">
+                <p class="nav-link active" aria-current="page">
                   Register
-                </a>
+                </p>
               </li>
               <li class="nav-item">
                 <Link to="/login">

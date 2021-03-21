@@ -1,5 +1,4 @@
-import { Navbar, Nav } from "react-bootstrap";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../auth/auth.css";
 import { useState } from "react";
 import axios from "axios";
@@ -62,9 +61,9 @@ const Login = (props) => {
             <ul class="navbar-nav">
               <li class="nav-item">
                 <Link to="/register">
-                  <a class="nav-link" aria-current="page">
+                  <p class="nav-link" aria-current="page">
                     Register
-                  </a>
+                  </p>
                 </Link>
               </li>
               <li class="nav-item active">

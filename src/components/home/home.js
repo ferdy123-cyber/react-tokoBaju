@@ -1,6 +1,5 @@
 import "../home/home.css";
 import { Link } from "react-router-dom";
-import user from "../../img/user.png";
 import UserManage from "../user-manage";
 
 const Home = (props) => {
@@ -8,7 +7,6 @@ const Home = (props) => {
     localStorage.setItem("login", "false");
   }
   const logedIn = localStorage.getItem("login");
-  const userName = localStorage.getItem("name");
   const logout = () => {
     localStorage.setItem("login", "false");
     alert("succes logout");
@@ -37,9 +35,9 @@ const Home = (props) => {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page">
+                <p class="nav-link active" aria-current="page">
                   Home
-                </a>
+                </p>
               </li>
               <li class="nav-item">
                 <Link to="/shop">
@@ -78,10 +76,10 @@ const Home = (props) => {
         <div class="col-5 row2">
           <ul className="right">
             <li className="list1">
-              <a href="#">LATEST</a>
+              <p>LATEST</p>
             </li>
             <li className="list1">
-              <a href="#">ALL</a>
+              <p>ALL</p>
             </li>
           </ul>
         </div>

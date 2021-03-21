@@ -22,13 +22,6 @@ const AddImage = ({ newProduct }) => {
       data.append("image", image);
       console.log(data);
       setPreview(loading);
-      // const progress = {
-      //   onUploadProgress: (progressEvent) => {
-      //     const { loaded, total } = progressEvent;
-      //     let percent = Math.floor((loaded * 100) / total);
-      //     console.log(`${loaded}kb of ${total}kb | ${percent}%`);
-      //   },
-      // };
 
       axios
         .post("http://localhost:8000/image/upload", data, {
@@ -80,12 +73,12 @@ const AddImage = ({ newProduct }) => {
       <div className="col-8 d-flex justify-content-center">
         {preview === "" && (
           <label className="mright" for="upload" onMouseOut={send}>
-            <img src={add} width="100px" height="100px" />
+            <img src={add} width="100px" height="100px" alt="prev" />
           </label>
         )}
         {preview === loading && (
           <div className="uplProses col-2">
-            <img src={preview} />
+            <img src={preview} alt="prev" />
           </div>
         )}
         {preview !== "" && preview !== loading && (
@@ -94,6 +87,7 @@ const AddImage = ({ newProduct }) => {
             src={preview}
             width="100px"
             height="100px"
+            alt="prev"
           />
         )}
         <input
@@ -103,12 +97,12 @@ const AddImage = ({ newProduct }) => {
         />
         {preview2 === "" && (
           <label for="upload2" onMouseOut={send2}>
-            <img src={add} width="100px" height="100px" />
+            <img src={add} width="100px" height="100px" alt="prev" />
           </label>
         )}
         {preview2 === loading && (
           <div className="uplProses col-2">
-            <img src={preview2} />
+            <img src={preview2} alt="prev" />
           </div>
         )}
         {preview2 !== "" && preview2 !== loading && (
@@ -117,6 +111,7 @@ const AddImage = ({ newProduct }) => {
             src={preview2}
             width="100px"
             height="100px"
+            alt="prev"
           />
         )}
         <input

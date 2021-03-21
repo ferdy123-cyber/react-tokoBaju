@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import shop from "../../img/shop.png";
 import UserManage from "../user-manage";
 import "../admin/style.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
@@ -56,9 +56,9 @@ const AdminPage = ({
             <ul class="navbar-nav">
               <li class="nav-item">
                 <Link to="/">
-                  <a class="nav-link" aria-current="page">
+                  <p class="nav-link" aria-current="page">
                     Home
-                  </a>
+                  </p>
                 </Link>
               </li>
               <li class="nav-item">
@@ -90,7 +90,7 @@ const AdminPage = ({
         <div className="user2 col-4 shadow-sm p-3 mb-5 bg-body rounded ">
           <div className="storename">
             <div className="userIcon">
-              <img src={shop} width="30px" height="30px" />
+              <img src={shop} width="30px" height="30px" alt="shop" />
               <span>{userName}'s store</span>
             </div>
             <div className="row">

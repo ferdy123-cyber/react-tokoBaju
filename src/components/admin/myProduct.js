@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import edt from "../../img/pencil.png";
 import del from "../../img/delete (1).png";
 import UserManage from "../user-manage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import errImg from "../../img/error-image-generic.png";
@@ -55,9 +55,9 @@ const MyProduct = ({ history, getProduct, data }) => {
             <ul class="navbar-nav">
               <li class="nav-item">
                 <Link to="/">
-                  <a class="nav-link" aria-current="page">
+                  <p class="nav-link" aria-current="page">
                     Home
-                  </a>
+                  </p>
                 </Link>
               </li>
               <li class="nav-item">
@@ -95,18 +95,26 @@ const MyProduct = ({ history, getProduct, data }) => {
                     <div class="minMrgin d-flex w-100 justify-content-between">
                       <h5 class="m mb-1">{e.name}</h5>
                       {e.images.length > 0 && (
-                        <img className="n rounded" src={e.images[0].url} />
+                        <img
+                          className="n rounded"
+                          src={e.images[0].url}
+                          alt="productImg"
+                        />
                       )}
                       {e.images.length === 0 && (
-                        <img className="n rounded" src={errImg} />
+                        <img
+                          className="n rounded"
+                          src={errImg}
+                          alt="productImg"
+                        />
                       )}
                       <Link to={`/seller/my-product/${e.id}`}>
                         <p className="delBtn">
-                          <img src={edt} />
+                          <img src={edt} alt="editImg" />
                         </p>
                       </Link>
                       <p className="delBtn">
-                        <img src={del} onClick={() => rmv(e.id)} />
+                        <img src={del} onClick={() => rmv(e.id)} alt="dltImg" />
                       </p>
                     </div>
                     <p class="mb-1">

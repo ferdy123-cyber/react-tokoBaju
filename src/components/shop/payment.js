@@ -1,10 +1,6 @@
 import UserManage from "../user-manage";
-import chek from "../../img/checkout.png";
-import logo from "../../img/tshirt3.jpg";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../shop/style.css";
-import add from "../../img/increase.png";
-import min from "../../img/decrease.png";
 import { connect } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";

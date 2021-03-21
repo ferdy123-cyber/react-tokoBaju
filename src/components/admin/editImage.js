@@ -3,7 +3,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import add from "../../img/add-image.png";
 import loading from "../../img/5 (1).gif";
-const AddImage = ({ detailProduct, toDetail, match }) => {
+const AddImage = ({ detailProduct, toDetail }) => {
   const [image, setImage] = useState("");
   //   const [image2, setImage2] = useState("");
   const [preview, setPreview] = useState("");
@@ -64,7 +64,7 @@ const AddImage = ({ detailProduct, toDetail, match }) => {
         detailProduct.images.map((e) => {
           return (
             <label className="col-2">
-              <img src={e.url} className="img-thumbnail" />
+              <img src={e.url} className="img-thumbnail" alt="imgEdit" />
               <button
                 onClick={() => deleteImg(e.id)}
                 className="delImg btn btn-dark"
@@ -76,12 +76,12 @@ const AddImage = ({ detailProduct, toDetail, match }) => {
         })}
       {preview !== "" && (
         <div className="uplProses col-2">
-          <img src={preview} />
+          <img src={preview} alt="uplProgres" />
         </div>
       )}
       {preview === "" && (
         <label className="col-2" for="upload" onMouseOut={send}>
-          <img src={add} width="100px" height="100px" />
+          <img src={add} width="100px" height="100px" alt="add" />
         </label>
       )}
       <input

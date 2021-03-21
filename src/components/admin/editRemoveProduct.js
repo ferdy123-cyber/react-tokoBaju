@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import shop from "../../img/tshirt1.jpg";
 import UserManage from "../user-manage";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import errImg from "../../img/error-image-generic.png";
 import Size from "../admin/editSize";
 import Image from "../admin/editImage";
 

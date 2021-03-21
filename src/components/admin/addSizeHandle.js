@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { Check } from "react-bootstrap-icons";
 import { connect } from "react-redux";
 
 const SizeHandle = ({ newProduct }) => {

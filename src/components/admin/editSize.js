@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { Check } from "react-bootstrap-icons";
 import { connect } from "react-redux";
 import delIcon from "../../img/delete.png";
 
@@ -56,7 +55,12 @@ const SizeHandle = ({ newProduct, detailProduct, toDetail }) => {
             return (
               <button className="sizeBtn">
                 {e.size}{" "}
-                <img src={delIcon} width="20px" onClick={() => delSize(e.id)} />
+                <img
+                  src={delIcon}
+                  width="20px"
+                  onClick={() => delSize(e.id)}
+                  alt="editSize"
+                />
               </button>
             );
           })}
