@@ -15,6 +15,7 @@ import MyProduct from "./components/admin/myProduct";
 import Edit from "./components/admin/editRemoveProduct";
 import Chart from "./components/shop/chart";
 import Payment from "./components/shop/payment";
+import History from "./components/shop/historyShop";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <AdminRoute component={Edit} path="/seller/my-product/:id" exact />
         <UserRoute component={Chart} path="/cart/:id" exact />
         <UserRoute component={Payment} path="/payment" exact />
+        <UserRoute component={History} path="/history" exact />
       </Switch>
     </Router>
   );

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import errImg from "../../img/error-image-generic.png";
 import user from "../../img/user.png";
+import historyIcon from "../../img/history.png";
 
 const ListProduct = ({ data, toDetail, getProduct }) => {
   useEffect(() => {
@@ -14,7 +15,7 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
   console.log(data);
   const logedIn = localStorage.getItem("login");
   const userName = localStorage.getItem("name");
-  // const role = localStorage.getItem("role");
+  const role = localStorage.getItem("role");
   const [Input, setInput] = useState("");
   return (
     <div className="div">
@@ -61,6 +62,11 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                 aria-label="Search"
                 onChange={(e) => setInput(e.target.value)}
               />
+              {role === "user" && (
+                <Link to="/history">
+                  <img src={historyIcon} width="30px" alt="history" />
+                </Link>
+              )}
             </form>
           </div>
         </div>
