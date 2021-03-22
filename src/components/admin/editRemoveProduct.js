@@ -6,7 +6,7 @@ import axios from "axios";
 import Size from "../admin/editSize";
 import Image from "../admin/editImage";
 
-const Edit = ({ detailProduct, toDetail, match, history, updateProduct }) => {
+const Edit = ({ detailProduct, toDetail, match, history, getProduct }) => {
   useEffect(() => {
     toDetail(match.params.id);
   }, [toDetail, match.params.id]);
@@ -32,6 +32,25 @@ const Edit = ({ detailProduct, toDetail, match, history, updateProduct }) => {
     setColor(detailProduct.color);
     setSex(detailProduct.sex);
   }, [detailProduct]);
+
+  const updateProduct = (updatedProduct) => {
+    axios
+      .patch(`http://localhost:8000/product/`, updatedProduct, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        alert("succes update product");
+        getProduct();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("You must re-login");
+        localStorage.setItem("login", "false");
+        localStorage.removeItem("token");
+      });
+  };
 
   return (
     <div>
@@ -233,25 +252,13 @@ const mapDispatchtoProps = (dispatch) => ({
         value: response.data.data,
       })
     ),
-  updateProduct: (updatedProduct) =>
-    axios
-      .patch(`http://localhost:8000/product/`, updatedProduct, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+  getProduct: () =>
+    axios.get("http://localhost:8000/product").then((response) =>
+      dispatch({
+        type: "GET_PRODUCT",
+        value: response.data.data,
       })
-      .then((response) =>
-        dispatch({
-          type: "UPDATE_PRODUCT",
-          value: response.data.data,
-        })
-      )
-      .catch((error) => {
-        console.log(error);
-        alert("You must re-login");
-        localStorage.setItem("login", "false");
-        localStorage.removeItem("token");
-      }),
+    ),
 });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(Edit);

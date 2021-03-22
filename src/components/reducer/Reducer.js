@@ -59,7 +59,7 @@ const productReducer = (state = initialState, action) => {
     };
   }
   if (action.type === "UPDATE_PRODUCT") {
-    alert("Succes update product");
+    console.log("Succes update product");
   }
   if (action.type === "DELETE") {
     alert("Succes delete product");
