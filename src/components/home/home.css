@@ -4,13 +4,10 @@
 }
 
 .div1 {
-  background: linear-gradient(to left, white 60%, rgba(231, 240, 242, 1) 40%);
-  height: 100vh;
-}
-
-.nav {
-  background: linear-gradient(to left, white 60%, rgba(231, 240, 242, 1) 40%);
-  padding-bottom: 30px;
+  /* background: linear-gradient(to left, white 60%, rgba(231, 240, 242, 1) 40%); */
+  background-color: rgba(231, 240, 242, 1);
+  height: 630px;
+  padding-top: 150px;
 }
 
 .user {

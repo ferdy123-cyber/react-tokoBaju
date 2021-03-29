@@ -88,7 +88,6 @@
 
 .editimg {
   max-width: 300px;
-  max-height: 300px;
   border-radius: 15px;
 }
 
@@ -130,3 +129,96 @@
   margin-right: 40px;
 }
 
+.detailImg .img {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.view {
+  padding: -20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border: solid 2px dimgrey;
+  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.sp {
+  color: white;
+  padding: 5px 10px;
+  font-weight: normal;
+  border-radius: 15px;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+}
+
+.ttl {
+  font-size: 23px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.dtl {
+  height: 100%;
+}
+
+.dis {
+  font-weight: 700;
+  font-size: 23px;
+  margin-bottom: -5px;
+}
+
+.dis2 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.prc {
+  font-size: 18px;
+}
+
+.ctr {
+  font-size: 13px;
+  font-weight: 400;
+}
+.siezes {
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.siezes button {
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-right: 8px;
+  padding: 5px 7px;
+  margin-bottom: 7px;
+}
+
+.addcart {
+  z-index: 1;
+  background-color: white;
+  font-weight: 500;
+  height: 50px;
+  margin-top: 10px;
+}
+
+.btmBtn {
+  /* position: fixed;
+  bottom: 20px; */
+  margin-right: 40px;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: -50px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: rgba(231, 240, 242, 1);
+  border: solid 1px black;
+}

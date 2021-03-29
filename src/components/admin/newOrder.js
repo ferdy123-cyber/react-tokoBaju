@@ -1,45 +1,57 @@
-import "../shop/style.css";
-import axios from "axios";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import UserNavbar from "../navbar/usernavbar";
+import { useEffect } from "react";
+import axios from "axios";
 import moment from "moment";
-
-const History = ({ getTransaction, transaction, data, getProduct }) => {
+const NewOrder = ({
+  getAllTransaction,
+  getProduct,
+  data,
+  allTransaction,
+  history,
+  getUser,
+  user,
+}) => {
   useEffect(() => {
-    getTransaction();
-  }, [getTransaction]);
+    getUser();
+  }, [getUser]);
   useEffect(() => {
     getProduct();
   }, [getProduct]);
-  const array = [
-    { date: "2018-05-11 14:08" },
-    { date: "2018-05-11 14:07" },
-    { date: "2018-05-11 07:45" },
-    { date: "2018-05-12 07:45" },
-    { date: "2018-05-10 07:45" },
-    { date: "2018-06-01 07:45" },
-    { date: "2018-05-30 07:45" },
-  ];
-  // const sortedArray = array.sort(
-  //   (a, b) =>
-  //     new moment(a.date).format("LLL") - new moment(b.date).format("LLL")
-  // );
-  console.log(array);
-  const sortedArray = array.sort(
-    (a, b) =>
-      new moment(b.date).format("YYYYMMDDhmm") -
-      new moment(a.date).format("YYYYMMDDhmm")
-  );
-  console.log(sortedArray);
-  // console.log(sortedArray);
+  useEffect(() => {
+    getAllTransaction();
+  }, [getAllTransaction]);
+  const newOrder =
+    allTransaction && allTransaction.filter((e) => e.status === "Paid");
+
+  const proceed = (val) => {
+    axios
+      .patch("http://localhost:8000/transaction/", val, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        alert("success");
+        getAllTransaction();
+        if (newOrder.length === 0) {
+          history.push("/seller");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <div>
+    <div className="">
       <UserNavbar />
       <div className="cont row d-flex justify-content-center ">
-        <p className="ttl col-8">Transactions</p>
-        {transaction &&
-          transaction
+        {newOrder.length !== 0 && <p className="ttl col-8">New Orders</p>}
+        {newOrder.length === 0 && (
+          <p className="ttl col-8">New Orders (Empty)</p>
+        )}
+        {newOrder &&
+          newOrder
             .sort(
               (a, b) =>
                 new moment(b.updated_at).format("YYYYMMDDhmmss") -
@@ -49,7 +61,12 @@ const History = ({ getTransaction, transaction, data, getProduct }) => {
               return (
                 <div className="bdy col-9 row d-flex justify-content-center shadow p-3 mb-5 bg-body">
                   <div className="col-12 row">
-                    <p className="usrId col-6">{e.id}</p>
+                    <p className="usrId col-6">
+                      {user
+                        .filter((val) => val.id === e.user_id)
+                        .map((a) => a.full_name)}{" "}
+                      | {e.user_id}
+                    </p>
                     <p className="tgl usrId col-6">
                       {moment(e.updated_at).format("lll")}
                     </p>
@@ -103,40 +120,20 @@ const History = ({ getTransaction, transaction, data, getProduct }) => {
                             .reverse()
                             .join("")}
                         </p>
-                        {e.status === "Success" && (
-                          <button className=" proced btn btn-success col-12">
-                            {e.status}
-                          </button>
-                        )}
-                        {e.status === "Paid" && (
-                          <button className=" proced btn btn-warning col-12">
-                            {e.status}
-                          </button>
-                        )}
-                        {e.status === "Canceled" && (
-                          <button className=" proced btn btn-danger col-12">
-                            {e.status}
-                          </button>
-                        )}
-                        {e.status === "Pending" && (
-                          <button className=" proced btn btn-light col-12">
-                            {e.status}
-                          </button>
-                        )}
-                        {e.status === "Canceling" && (
-                          <button className="fixText proced btn btn-outline-danger col-12">
-                            {e.status}
-                          </button>
-                        )}
+                        <button
+                          onClick={() =>
+                            proceed({
+                              id: e.id,
+                              status: "Success",
+                            })
+                          }
+                          className=" proced btn btn-dark col-12"
+                        >
+                          Proceed
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <a
-                    href={`/transaction/${e.id}`}
-                    className="btnHistory btn btn-light col-12 "
-                  >
-                    Detail
-                  </a>
                 </div>
               );
             })}
@@ -148,25 +145,19 @@ const History = ({ getTransaction, transaction, data, getProduct }) => {
 const mapStatetoProps = (props) => {
   return {
     data: props.product.data,
-    transaction: props.product.transaction,
+    user: props.product.user,
+    allTransaction: props.product.allTransaction,
   };
 };
 
 const mapDispatchtoProps = (dispatch) => ({
-  getTransaction: () =>
-    axios
-      .get("http://localhost:8000/transaction", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+  getUser: () =>
+    axios.get("http://localhost:8000/auth/get").then((response) =>
+      dispatch({
+        type: "GET_USER",
+        value: response.data.data,
       })
-      .then((response) =>
-        dispatch({
-          type: "GET_TRANSACTION",
-          value: response.data.data,
-        })
-      ),
-
+    ),
   getProduct: () =>
     axios.get("http://localhost:8000/product").then((response) =>
       dispatch({
@@ -174,6 +165,23 @@ const mapDispatchtoProps = (dispatch) => ({
         value: response.data.data,
       })
     ),
+
+  getAllTransaction: () =>
+    axios
+      .get("http://localhost:8000/transaction/all", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) =>
+        dispatch({
+          type: "ALL_TRANSACTION",
+          value: response.data.data,
+        })
+      )
+      .catch((err) => {
+        alert(err.response.data.message);
+      }),
 });
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(History);
+export default connect(mapStatetoProps, mapDispatchtoProps)(NewOrder);

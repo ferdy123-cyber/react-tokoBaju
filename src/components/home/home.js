@@ -1,69 +1,14 @@
 import "../home/home.css";
 import { Link } from "react-router-dom";
-import UserManage from "../user-manage";
+import UserNavbar from "../navbar/usernavbar";
 
-const Home = (props) => {
+const Home = () => {
   if (!localStorage.getItem("login")) {
     localStorage.setItem("login", "false");
   }
-  const logedIn = localStorage.getItem("login");
-  const logout = () => {
-    localStorage.setItem("login", "false");
-    alert("succes logout");
-    props.history.push("/");
-  };
-  console.log(UserManage);
   return (
-    <div className="div1">
-      <nav class="nav navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <p class="nav-link active" aria-current="page">
-                  Home
-                </p>
-              </li>
-              <li class="nav-item">
-                <Link to="/shop">
-                  <p class="nav-link">Shop</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        {logedIn === "true" && (
-          <button
-            class="logoutbtn btn btn-outline-dark"
-            type="submit"
-            onClick={logout}
-          >
-            Logout
-          </button>
-        )}
-        {logedIn === "false" && (
-          <Link to="/login">
-            <button class="loginbtn btn btn-dark" type="submit">
-              Login
-            </button>
-          </Link>
-        )}
-      </nav>
+    <div className=" div1">
+      <UserNavbar />
       <div className="row">
         <div class="col-7 row1">
           <p>

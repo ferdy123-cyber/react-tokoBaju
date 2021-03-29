@@ -1,64 +1,34 @@
 import { Link } from "react-router-dom";
-import UserManage from "../user-manage";
 import "../admin/style.css";
 import { useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import SizeHandle from "../admin/addSizeHandle";
 import AddImage from "../admin/addImage";
+import {
+  Dropdown,
+  DropdownButton,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
+import UserNavbar from "../navbar/usernavbar";
 
 const AddProduct = ({ history, addProduct, newProduct, reset }) => {
-  const logedIn = localStorage.getItem("login");
-  const logout = () => {
-    localStorage.setItem("login", "false");
-    alert("succes logout");
-    history.push("/");
-  };
   console.log(newProduct);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [chategory, setChategory] = useState("");
   const [stock, setStock] = useState(null);
   const [price, setPrice] = useState("");
   const [color, setColor] = useState("");
   const [sex, setSex] = useState("");
-
+  const change = (val) => {
+    setChategory(val);
+  };
+  console.log(sex);
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded fixed-top">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-        {logedIn === "true" && (
-          <button
-            class="logoutbtn btn btn-outline-dark"
-            type="submit"
-            onClick={logout}
-          >
-            Logout
-          </button>
-        )}
-        {logedIn === "false" && (
-          <Link to="/login">
-            <button class="loginbtn btn btn-dark" type="submit">
-              Login
-            </button>
-          </Link>
-        )}
-      </nav>
+      <UserNavbar />
       <div className="top row d-flex justify-content-center">
         <div className="user2 col-8 shadow p-3 mb-5 bg-body rounded ">
           {newProduct.name === "" && (
@@ -88,7 +58,7 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
                   <p>Description</p>
                 </div>
                 <div className="col-8 d-flex justify-content-end">
-                  <input
+                  <textarea
                     value={
                       description.charAt(0).toUpperCase() + description.slice(1)
                     }
@@ -100,6 +70,7 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
                   />
                 </div>
               </div>
+
               <div className="marg row d-flex justify-content-center">
                 <div className="col-3">
                   <p>Stock</p>
@@ -147,21 +118,81 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
               </div>
               <div className="marg row d-flex justify-content-center">
                 <div className="col-3">
+                  <p>Chategory</p>
+                </div>
+                <InputGroup className="select col-8">
+                  <FormControl
+                    placeholder="Chategory..."
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    value={chategory}
+                  />
+
+                  <DropdownButton
+                    as={InputGroup.Append}
+                    className="set"
+                    variant="outline-secondary"
+                    title="Select"
+                    id="input-group-dropdown-1"
+                  >
+                    <Dropdown.Item
+                      value="T-Shirt"
+                      onClick={() => change("T-Shirt")}
+                    >
+                      T-Shirt
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => change("Jacket")}>
+                      Jacket
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => change("Shoes")}>
+                      Shoes
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => change("Jeans")}>
+                      Jeans
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => change("Hat")}>
+                      Hat
+                    </Dropdown.Item>
+                  </DropdownButton>
+                </InputGroup>
+              </div>
+              <div className="marg row d-flex justify-content-center">
+                <div className="col-3">
                   <p>Sex</p>
                 </div>
-                <div className="col-8 d-flex justify-content-start">
-                  <input
-                    value={sex.charAt(0).toUpperCase() + sex.slice(1)}
-                    onChange={(e) => setSex(e.target.value)}
-                    class="form-control"
-                    type="text"
-                    placeholder="Male/Female"
-                    aria-label="default input example"
-                  />
+                <div className="col-8 d-flex justify-content-center">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio1"
+                      value="Male"
+                      onClick={(e) => setSex(e.target.value)}
+                    />
+                    <label class="bgc form-check-label" for="inlineRadio1">
+                      Male
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input-secondary"
+                      type="radio"
+                      name="inlineRadioOptions"
+                      id="inlineRadio2"
+                      value="Female"
+                      onClick={(e) => setSex(e.target.value)}
+                    />
+                    <label class="form-check-label" for="inlineRadio2">
+                      Female
+                    </label>
+                  </div>
                 </div>
               </div>
+
               {!(name === "") &&
                 !(description === "") &&
+                !(chategory === "") &&
                 !(stock === null) &&
                 !(price === null) &&
                 !(color === "") &&
@@ -172,6 +203,7 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
                         addProduct({
                           name: name,
                           description: description,
+                          chategory: chategory,
                           stock: stock,
                           price: price,
                           discount: price - price * 0.2,
@@ -258,6 +290,16 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
               </div>
               <div className="marg row d-flex justify-content-center">
                 <div className="col-3">
+                  <p>Chategory</p>
+                </div>
+                <div className="col-8 d-flex justify-content-center">
+                  <p>
+                    <b>{newProduct.chategory}</b>
+                  </p>
+                </div>
+              </div>
+              <div className="marg row d-flex justify-content-center">
+                <div className="col-3">
                   <p>Sex</p>
                 </div>
                 <div className="col-8 d-flex justify-content-center">
@@ -296,6 +338,7 @@ const AddProduct = ({ history, addProduct, newProduct, reset }) => {
                   id: "",
                   name: "",
                   description: "",
+                  chategory: "",
                   stock: 0,
                   price: 0,
                   discount: 0,

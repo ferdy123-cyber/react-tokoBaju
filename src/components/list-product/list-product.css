@@ -110,3 +110,49 @@ body {
   margin-left: 40px;
   margin-top: 8px;
 }
+
+.imgProduct {
+  padding: -20px;
+}
+
+.cardtitle {
+  font-size: 13px;
+  margin-left: -12px;
+  margin-right: -12px;
+  color: #000004;
+}
+
+.img {
+  padding: 8px;
+  height: 170px;
+  width: 170px;
+  object-fit: contain;
+}
+
+.a {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.card {
+  height: 310px;
+  margin-bottom: 15px;
+}
+
+.price {
+  margin-top: -13px;
+  font-size: 12px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.adjust {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* .dark {
+  background-color: violet;
+} */

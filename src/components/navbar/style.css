@@ -1,0 +1,118 @@
+.down {
+  margin-top: 130px;
+}
+
+.cart1 {
+  margin-left: 30px;
+  margin-right: 23px;
+  margin-top: 7px;
+}
+
+.brand {
+  margin-left: 20;
+}
+
+.username {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: -8px;
+  margin-right: 15px;
+}
+
+.filter {
+  margin-bottom: 15px;
+  text-align: center;
+  margin-top: -20px;
+  position: sticky;
+  top: 82px;
+  z-index: 90;
+  background-color: white;
+}
+
+.filterButton {
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 10px;
+  background-color: white;
+  border: none;
+  padding-bottom: 10px;
+}
+
+.searchBar2 {
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  margin-top: 90px;
+  padding-top: -10px;
+  left: 16px;
+  height: 110vh;
+}
+
+.result {
+  background-color: white;
+  margin-top: 5px;
+  margin-right: 130px;
+  position: fixed;
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.result img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-left: -10px;
+}
+
+.result p {
+  font-weight: 500;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.titleResult {
+  font-size: 13px;
+}
+
+.listResult {
+  margin-bottom: 10px;
+}
+
+.judul {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  width: 400px;
+  height: 50px;
+  margin-top: -16px;
+  padding-top: 15px;
+}
+
+.jarak {
+  margin-top: 50px;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: black;
+}
+
+.bdg2 {
+  margin-left: -20px;
+  color: white;
+}
+
+.username span {
+  color: white;
+}
+
+.bdg4 {
+  color: white;
+  width: 17px;
+  height: 17px;
+  font-size: 12px;
+  margin-left: -15px;
+  margin-right: 15px;
+}

@@ -1,18 +1,12 @@
 import { Link } from "react-router-dom";
 import shop from "../../img/shop.png";
-import UserManage from "../user-manage";
 import "../admin/style.css";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import UserNavbar from "../navbar/usernavbar";
 
-const AdminPage = ({
-  data,
-  history,
-  getProduct,
-  allTransaction,
-  getAllTransaction,
-}) => {
+const AdminPage = ({ data, getProduct, allTransaction, getAllTransaction }) => {
   useEffect(() => {
     getProduct();
   }, [getProduct]);
@@ -22,71 +16,18 @@ const AdminPage = ({
 
   console.log(data);
   console.log(allTransaction);
-  const ordrComplete = allTransaction.filter((e) => e.status === "Paid");
-  const saldo = ordrComplete
+  const newOrder = allTransaction.filter((e) => e.status === "Paid");
+  const orderComplete = allTransaction.filter((e) => e.status === "Success");
+  const orderComplain = allTransaction.filter((e) => e.status === "Canceling");
+  const orderCanceled = allTransaction.filter((e) => e.status === "Canceled");
+  const saldo = orderComplete
     .map((e) => e.total_payment)
     .reduce((a, b) => a + b, 0);
-  const logedIn = localStorage.getItem("login");
-  const logout = () => {
-    localStorage.setItem("login", "false");
-    alert("succes logout");
-    history.push("/");
-  };
   const userName = localStorage.getItem("name");
   return (
-    <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link to="/">
-                  <p class="nav-link" aria-current="page">
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link to="/shop">
-                  <p class="nav-link">Shop</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        {logedIn === "true" && (
-          <button
-            class="logoutbtn btn btn-outline-dark"
-            type="submit"
-            onClick={logout}
-          >
-            Logout
-          </button>
-        )}
-        {logedIn === "false" && (
-          <Link to="/login">
-            <button class="loginbtn btn btn-dark" type="submit">
-              Login
-            </button>
-          </Link>
-        )}
-      </nav>
-      <div className="row d-flex justify-content-center">
+    <div className="down">
+      <UserNavbar />
+      <div className="ed1 row d-flex justify-content-center">
         <div className="user2 col-4 shadow-sm p-3 mb-5 bg-body rounded ">
           <div className="storename">
             <div className="userIcon">
@@ -116,10 +57,36 @@ const AdminPage = ({
         <div className="user2 col-2 shadow-sm p-3 mb-5 bg-body rounded ">
           <div className="storename">
             <div className="userIcon">
+              <span>New orders</span>
+            </div>
+            <div className="row d-flex justify-content-center">
+              <a href="/seller/new-order" className="new">
+                {newOrder.length}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="user2 col-2 shadow-sm p-3 mb-5 bg-body rounded ">
+          <div className="storename">
+            <div className="userIcon">
+              <span>Orders complain</span>
+            </div>
+            <div className="row d-flex justify-content-center">
+              <a href="seller/complain-order" className="new">
+                {orderComplain.length}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="user2 col-2 shadow-sm p-3 mb-5 bg-body rounded ">
+          <div className="storename">
+            <div className="userIcon">
               <span>Orders complete</span>
             </div>
             <div className="row d-flex justify-content-center">
-              <p className="new">{ordrComplete.length}</p>
+              <a href="seller/order-complete" className="new">
+                {orderComplete.length}
+              </a>
             </div>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import "../detail-product/product.css";
 import { connect } from "react-redux";
-import { useEffect } from "react";
-import chek from "../../img/checkout.png";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
-import UserManage from "../user-manage";
+import UserNavbar from "../navbar/usernavbar";
+import { ShopWindow } from "react-bootstrap-icons";
 
 const Product = (props) => {
   const {
@@ -30,8 +29,6 @@ const Product = (props) => {
   const trscPending =
     transaction && transaction.filter((e) => e.status === "Pending");
   console.log(trscPending.map((e) => e.orders).map((e) => e.product_qty));
-
-  const linkCart = trscPending.map((e) => e.id);
   const createTransaction = (val) => {
     const trscPending =
       transaction && transaction.filter((e) => e.status === "Pending");
@@ -50,7 +47,9 @@ const Product = (props) => {
             product_id: detailProduct.id,
             product_qty: 1,
             transaction_id: response.data.data.id,
+            product_discount: 100000,
           });
+          localStorage.setItem("trscId", response.data.data.id);
           getTransactionById(response.data.data.id);
           history.push(`/cart/${response.data.data.id}`);
         })
@@ -64,65 +63,193 @@ const Product = (props) => {
         product_id: detailProduct.id,
         product_qty: 1,
         transaction_id: trscPending[0].id,
+        product_discount: 100000,
       });
       getTransactionById(trscPending[0].id);
       history.push(`/cart/${trscPending[0].id}`);
     }
   };
-  const logedIn = localStorage.getItem("login");
-  return (
-    <div className="div2">
-      <nav class="navProduct navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link to="/">
-                  <p class="nav-link" aria-current="page">
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link to="/shop">
-                  <p class="nav-link">Shop</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div class="d-flex justify-content-end">
-            {trscPending.length !== 0 && (
-              <Link to={`/cart/${linkCart}`}>
-                <img
-                  className="chekout"
-                  src={chek}
-                  width="25px"
-                  height="25px"
-                  alt="cart"
-                />
-              </Link>
-            )}
 
-            <span class="bdg badge rounded-pill bg-danger">{}</span>
-          </div>
+  const [idx, setIdx] = useState(0);
+
+  const showImg = (val) => {
+    setIdx(val);
+  };
+  const [cart, setCart] = useState(false);
+
+  const updatePrice = (value) => {
+    setCart(true);
+  };
+
+  return (
+    <div className="down div2">
+      <UserNavbar />
+      <div className="row d-flex justify-content-center">
+        <div className="detailImg col-4 row ">
+          <img
+            className="img col-12 shadow-sm p-3 bg-body rounded"
+            src={detailProduct.images[idx].url}
+            alt="..."
+          />
+          {detailProduct.images &&
+            detailProduct.images.map((e, index) => {
+              return (
+                <img
+                  className="view col-2"
+                  src={e.url}
+                  onMouseEnter={() => showImg(index)}
+                  alt="..."
+                />
+              );
+            })}
         </div>
-      </nav>
-      <div className="deskripsi row d-flex justify-content-center">
+        <div className="dtl col-6 row">
+          <div className="col-4">
+            <span class="sp badge bg-dark">{detailProduct.stock} Stock</span>
+          </div>
+          <p className="ttl col-12">
+            {detailProduct.name} - {detailProduct.color}
+          </p>
+          <p className="dis ttl col-12">
+            IDR{" "}
+            {detailProduct.discount
+              .toString()
+              .split("")
+              .reverse()
+              .join("")
+              .match(/\d{1,3}/g)
+              .join(".")
+              .split("")
+              .reverse()
+              .join("")}
+          </p>
+          <p className="dis dis2 col-12">
+            <s>
+              IDR{" "}
+              {detailProduct.price
+                .toString()
+                .split("")
+                .reverse()
+                .join("")
+                .match(/\d{1,3}/g)
+                .join(".")
+                .split("")
+                .reverse()
+                .join("")}
+            </s>
+            {"  "}
+            20% OFF
+          </p>
+          <hr className="col-12" />
+          <div className="siezes filter col-12 row justify-content-center shadow-sm bg-body rounded">
+            {detailProduct.sizes &&
+              detailProduct.sizes.map((e, index) => {
+                return (
+                  <button
+                    onClick={() => updatePrice(e.percentage_price)}
+                    className="btn btn-dark filterButton btn btn-dark col-2"
+                  >
+                    {e.size}
+                  </button>
+                );
+              })}
+            {/* {key !== "" && (
+              <button onClick={() => fil("")} className="filterButton col-2">
+                All
+              </button>
+            )}
+            {key === "" && (
+              <button
+                onClick={() => fil("")}
+                className="adjust btn btn-dark  col-2"
+              >
+                All
+              </button>
+            )}
+            {key !== "T-Shirt" && (
+              <button
+                onClick={() => fil("T-Shirt")}
+                className="filterButton col-2"
+              >
+                T-Shirt
+              </button>
+            )}
+            {key === "T-Shirt" && (
+              <button
+                onClick={() => fil("T-Shirt")}
+                className="adjust btn btn-dark col-2"
+              >
+                T-Shirt
+              </button>
+            )}
+            {key !== "Jeans" && (
+              <button
+                onClick={() => fil("Jeans")}
+                className="filterButton col-2"
+              >
+                Jeans
+              </button>
+            )}
+            {key === "Jeans" && (
+              <button
+                onClick={() => fil("Jeans")}
+                className="adjust btn btn-dark col-2"
+              >
+                Jeans
+              </button>
+            )}
+            {key !== "Jacket" && (
+              <button
+                onClick={() => fil("Jacket")}
+                className="filterButton col-2"
+              >
+                Jacket
+              </button>
+            )}
+            {key === "Jacket" && (
+              <button
+                onClick={() => fil("Jacket")}
+                className="adjust btn btn-dark col-2"
+              >
+                Jacket
+              </button>
+            )}
+            {key !== "Hat" && (
+              <button onClick={() => fil("Hat")} className="filterButton col-2">
+                Hat
+              </button>
+            )}
+            {key === "Hat" && (
+              <button
+                onClick={() => fil("Hat")}
+                className="adjust btn btn-dark col-2"
+              >
+                Hat
+              </button>
+            )}
+            {key !== "Shoes" && (
+              <button
+                onClick={() => fil("Shoes")}
+                className="filterButton col-2"
+              >
+                Shoes
+              </button>
+            )}
+            {key === "Shoes" && (
+              <button
+                onClick={() => fil("Shoes")}
+                className="adjust btn btn-dark col-2"
+              >
+                Shoes
+              </button>
+            )} */}
+          </div>
+          <hr className="col-12" />
+          <p className=" ctr col-12">Chategory: {detailProduct.chategory}</p>
+          <p className=" ctr col-12">{detailProduct.description}</p>
+        </div>
+      </div>
+      {/* <div className="deskripsi row d-flex justify-content-center">
         <div className="left col-3">
           {detailProduct.images !== null && (
             <Carousel>
@@ -213,7 +340,27 @@ const Product = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      {localStorage.getItem("role") === "user" && (
+        <div className="row d-flex justify-content-end">
+          <div className="col-5 row d-flex justify-content-center">
+            <button className="btmBtn col-4 fixed-botttom">Chat seller</button>
+            {cart === true && (
+              <button
+                onClick={() =>
+                  createTransaction({
+                    status: "Pending",
+                    total_payment: 0,
+                  })
+                }
+                className="btmBtn col-4"
+              >
+                Add to cart
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

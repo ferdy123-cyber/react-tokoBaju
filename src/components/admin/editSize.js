@@ -21,12 +21,12 @@ const SizeHandle = ({ newProduct, detailProduct, toDetail }) => {
         toDetail(detailProduct.id);
       })
       .catch((err) => {
-        alert("Your must be relog in");
+        alert(err.response.data.message);
         console.log(err);
       });
   };
   console.log(size);
-  console.log(detailProduct.sizes);
+  console.log(detailProduct.id);
   console.log(newProduct);
   const delSize = (id) => {
     axios

@@ -1,4 +1,3 @@
-import UserManage from "../user-manage";
 import { Link } from "react-router-dom";
 import "../shop/style.css";
 import add from "../../img/increase.png";
@@ -6,6 +5,8 @@ import min from "../../img/decrease.png";
 import { connect } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import UserNavbar from "../navbar/usernavbar";
+import moment from "moment";
 
 const Chart = (props) => {
   const {
@@ -22,7 +23,6 @@ const Chart = (props) => {
     getProduct();
   }, [getProduct]);
   console.log(transactionById);
-  const logedIn = localStorage.getItem("login");
 
   const deleteOrder = (id) => {
     axios
@@ -40,6 +40,8 @@ const Chart = (props) => {
         console.log(err);
       });
   };
+
+  console.log(transactionById);
 
   const addOrder = (val) => {
     axios
@@ -73,41 +75,7 @@ const Chart = (props) => {
 
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded fixed-top">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link to="/">
-                  <p class="nav-link" aria-current="page">
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link to="/shop">
-                  <p class="nav-link">Shop</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <UserNavbar />
       {transactionById.orders.length === 0 && (
         <div className=" btm row  d-flex justify-content-center">
           <h5 className="col-12 d-flex justify-content-center">
@@ -122,96 +90,128 @@ const Chart = (props) => {
       )}
       {transactionById.orders.length !== 0 && (
         <div className="chartLand row d-flex justify-content-start">
-          <div className="marginR col-5">
+          <div className="marginR col-7">
             {transactionById.orders &&
-              transactionById.orders.map((e, index) => {
-                return (
-                  <div className="listCart row shadow-sm p-3 mb-5 bg-light bg-body rounded">
-                    <div className="col-3">
-                      <img
-                        className=""
-                        src={data
-                          .filter((val) => val.id === e.product_id)
-                          .map((e) => e.images[0].url)}
-                        width="100px"
-                        alt="order-img"
-                      />
-                    </div>
-                    <div className="col-8">
-                      <p className="prdName">
-                        {data
-                          .filter((val) => val.id === e.product_id)
-                          .map((e) => e.name)}
-                      </p>
-                      <p className="prdPrice">
-                        <b>
-                          IDR{" "}
-                          {e.product_discount
-                            .toString()
-                            .split("")
-                            .reverse()
-                            .join("")
-                            .match(/\d{1,3}/g)
-                            .join(".")
-                            .split("")
-                            .reverse()
-                            .join("")}
-                        </b>
-                      </p>
-                    </div>
-                    <div className="bottomCart col d-flex justify-content-end">
-                      {e.product_qty > 1 && (
+              transactionById.orders
+                .sort(
+                  (a, b) =>
+                    new moment(b.createdAt).format("YYYYMMDDhmm") -
+                    new moment(a.createddAt).format("YYYYMMDDhmm")
+                )
+                .map((e, index) => {
+                  console.log(
+                    moment(e.createdAt).format("MMMM Do YYYY, h:mm:ss a")
+                  );
+                  return (
+                    <div className="listCart row shadow p-3 mb-5 bg-body rounded">
+                      <div className="col-2">
+                        <img
+                          className="cartImage"
+                          src={data
+                            .filter((val) => val.id === e.product_id)
+                            .map((e) => e.images[0].url)}
+                          width="100px"
+                          height="100px"
+                          alt="order-img"
+                        />
+                      </div>
+                      <div className="col-8">
+                        <p className="prdName">
+                          {data
+                            .filter((val) => val.id === e.product_id)
+                            .map((e) => e.name)}
+                        </p>
+                        <p className="prdPrice">
+                          <b>
+                            IDR{" "}
+                            {e.product_discount
+                              .toString()
+                              .split("")
+                              .reverse()
+                              .join("")
+                              .match(/\d{1,3}/g)
+                              .join(".")
+                              .split("")
+                              .reverse()
+                              .join("")}
+                          </b>
+                        </p>
+                      </div>
+                      <div className="bottomCart col d-flex justify-content-end">
+                        {e.product_qty > 1 && (
+                          <img
+                            onClick={() =>
+                              minOrder({
+                                product_id: e.product_id,
+                                product_qty: -1,
+                                transaction_id: transactionById.id,
+                              })
+                            }
+                            src={min}
+                            width="25px"
+                            height="25px"
+                            alt="min"
+                          />
+                        )}
+                        {e.product_qty === 1 && (
+                          <img src={min} width="25px" height="25px" alt="min" />
+                        )}
+
+                        <span>{e.product_qty}</span>
                         <img
                           onClick={() =>
-                            minOrder({
+                            addOrder({
                               product_id: e.product_id,
-                              product_qty: -1,
+                              product_qty: 1,
                               transaction_id: transactionById.id,
                             })
                           }
-                          src={min}
+                          alt="increase"
+                          src={add}
                           width="25px"
                           height="25px"
-                          alt="min"
                         />
-                      )}
-                      {e.product_qty === 1 && (
-                        <img src={min} width="25px" height="25px" alt="min" />
-                      )}
-
-                      <span>{e.product_qty}</span>
-                      <img
-                        onClick={() =>
-                          addOrder({
-                            product_id: e.product_id,
-                            product_qty: 1,
-                            transaction_id: transactionById.id,
-                          })
-                        }
-                        alt="increase"
-                        src={add}
-                        width="25px"
-                        height="25px"
-                      />
-                      <button
-                        onClick={() => deleteOrder(e.id)}
-                        className="rmv btn btn-dark"
-                      >
-                        <p>Remove</p>
-                      </button>
+                        <button
+                          onClick={() => deleteOrder(e.id)}
+                          className="rmv btn btn-dark"
+                        >
+                          <p>Remove</p>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
           </div>
 
-          <div className="paymentBox col-4">
+          <div className="paymentBox col-3">
             <div className="row shadow-sm p-3 mb-5 bg-body rounded d-flex justify-content-center">
+              <p className="col-6">Total</p>
+              <p className="text col-6 ">
+                IDR{" "}
+                {transactionById.total_payment
+                  .toString()
+                  .split("")
+                  .reverse()
+                  .join("")
+                  .match(/\d{1,3}/g)
+                  .join(".")
+                  .split("")
+                  .reverse()
+                  .join("")}
+              </p>
+              <a
+                href={`/payment/${transactionById.id}`}
+                className="col-12 row d-flex justify-content-center"
+              >
+                <button className="col-12">Chekout</button>
+              </a>
+            </div>
+            {/* <div className="row shadow-sm p-3 mb-5 bg-body rounded d-flex justify-content-center">
               <div className="col-4">
                 <h5>Total</h5>
               </div>
               <div className="col-8 d-flex justify-content-end">
-                <h3>
+                <h5>
                   IDR{" "}
                   {transactionById !== null &&
                     transactionById.total_payment
@@ -224,14 +224,14 @@ const Chart = (props) => {
                       .split("")
                       .reverse()
                       .join("")}
-                </h3>
+                </h5>
               </div>
             </div>
             <Link to="/payment">
               <div className="row shadow-sm p-3 mb-5 bg-body rounded d-flex justify-content-center">
                 <button className="btn btn-dark col-11">Chekout</button>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       )}
@@ -259,6 +259,7 @@ const mapDispatchtoProps = (dispatch) => ({
         dispatch({
           type: "GET_TRANSACTION_byID",
           value: response.data.data,
+          value2: response.data.totalQty,
         })
       ),
   getProduct: () =>

@@ -1,29 +1,24 @@
-import UserManage from "../user-manage";
 import { Link } from "react-router-dom";
 import "../shop/style.css";
 import { connect } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import UserNavbar from "../navbar/usernavbar";
 
 const Payment = ({
   getTransactionById,
   getTransaction,
   transaction,
   transactionById,
+  match,
 }) => {
   const load = () => {
     getTransaction();
   };
   console.log(transaction);
-  const trscPending =
-    transaction && transaction.filter((e) => e.status === "Pending");
-
-  const linkCart = trscPending.map((e) => e.id);
-  const logedIn = localStorage.getItem("login");
   useEffect(() => {
-    getTransactionById(linkCart);
-  }, [getTransactionById, linkCart]);
-  console.log(linkCart);
+    getTransactionById(match.params.id);
+  }, [getTransactionById, match.params.id]);
 
   const payNow = (val) => {
     axios
@@ -34,7 +29,7 @@ const Payment = ({
       })
       .then((res) => {
         alert("success payment");
-        getTransactionById(linkCart);
+        getTransactionById(localStorage.getItem("trscId"));
       })
       .catch((err) => {
         console.log(err);
@@ -42,45 +37,8 @@ const Payment = ({
   };
 
   return (
-    <div>
-      <nav
-        onLoad={load}
-        class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded fixed-top"
-      >
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && <UserManage />}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link to="/">
-                  <p class="nav-link" aria-current="page">
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link to="/shop">
-                  <p class="nav-link">Shop</p>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+    <div onLoad={load} className="down">
+      <UserNavbar />
       <div className="paymnt row d-flex justify-content-center ">
         <div className="shadow p-3 mb-5 bg-body rounded col-5">
           <div className="e row d-flex justify-content-center">
@@ -88,7 +46,19 @@ const Payment = ({
           </div>
           <div className="e row justify-content-center">
             <h5 className="col-4">Total : </h5>
-            <h5 className="prc col-6">IDR {transactionById.total_payment}</h5>
+            <h5 className="prc col-6">
+              IDR{" "}
+              {transactionById.total_payment
+                .toString()
+                .split("")
+                .reverse()
+                .join("")
+                .match(/\d{1,3}/g)
+                .join(".")
+                .split("")
+                .reverse()
+                .join("")}
+            </h5>
           </div>
           <div className="e row justify-content-center">
             <h5 className="col-4">Status : </h5>
@@ -99,7 +69,8 @@ const Payment = ({
               <button
                 onClick={() =>
                   payNow({
-                    id: linkCart,
+                    id: transactionById.id,
+                    status: "Paid",
                   })
                 }
                 className="btn btn-dark col-5"

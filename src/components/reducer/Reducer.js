@@ -1,18 +1,20 @@
 const initialState = {
-  user: {
-    login_as: "",
-    name: "",
-    token: "",
-  },
+  user: [],
   data: [],
   detailProduct: {
     price: 0,
     discount: 0,
+    images: [
+      {
+        url: "",
+      },
+    ],
   },
   newProduct: {
     id: "",
     name: "",
     description: "",
+    chategory: "",
     stock: 0,
     price: 0,
     discount: 0,
@@ -26,7 +28,12 @@ const initialState = {
     product_discount: 0,
     product_qty: 0,
     total_payment: 0,
-    orders: [],
+    orders: [
+      {
+        product_qty: 0,
+        product_discount: 0,
+      },
+    ],
   },
   allTransaction: [],
 };
@@ -52,6 +59,12 @@ const productReducer = (state = initialState, action) => {
       data: action.value,
     };
   }
+  if (action.type === "GET_USER") {
+    return {
+      ...state,
+      user: action.value,
+    };
+  }
   if (action.type === "ADD_PRODUCT") {
     return {
       ...state,
@@ -74,6 +87,7 @@ const productReducer = (state = initialState, action) => {
     return {
       ...state,
       transactionById: action.value,
+      totalQty: action.value2,
     };
   }
   if (action.type === "ADD_ORDER") {
@@ -85,6 +99,14 @@ const productReducer = (state = initialState, action) => {
       allTransaction: action.value,
     };
   }
+  if (action.type === "FILTER") {
+    const filter = state.data.filter((e) => e.chategory === action.value);
+    return {
+      ...state,
+      data: filter,
+    };
+  }
+
   return state;
 };
 

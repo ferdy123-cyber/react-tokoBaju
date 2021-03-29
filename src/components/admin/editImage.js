@@ -5,12 +5,7 @@ import add from "../../img/add-image.png";
 import loading from "../../img/5 (1).gif";
 const AddImage = ({ detailProduct, toDetail }) => {
   const [image, setImage] = useState("");
-  //   const [image2, setImage2] = useState("");
   const [preview, setPreview] = useState("");
-
-  //   console.log(preview2);
-  //   console.log(preview);
-  //   console.log(detailProduct);
   const send = (e) => {
     e.preventDefault();
     const data = new FormData();

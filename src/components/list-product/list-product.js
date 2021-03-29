@@ -1,140 +1,159 @@
 import "../list-product/list-product.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import errImg from "../../img/error-image-generic.png";
-import user from "../../img/user.png";
-import historyIcon from "../../img/history.png";
+import UserNavbar from "../navbar/usernavbar";
+import { Card } from "react-bootstrap";
+import moment from "moment";
 
 const ListProduct = ({ data, toDetail, getProduct }) => {
   useEffect(() => {
     getProduct();
   }, [getProduct]);
+  const [key, setKey] = useState("");
+  const fil = (val) => {
+    setKey(val);
+  };
   console.log(data);
-  const logedIn = localStorage.getItem("login");
-  const userName = localStorage.getItem("name");
-  const role = localStorage.getItem("role");
-  const [Input, setInput] = useState("");
   return (
-    <div className="div">
-      <nav class="nav1 navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
-        <div class="container-fluid">
-          <p class="navbar-brand user">
-            {logedIn === "true" && (
-              <div className="userIcon">
-                <img src={user} width="28px" height="28px" alt="user" />
-                <span>{userName}</span>
-              </div>
-            )}
-            {logedIn === "false" && ""}
-          </p>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
+    <div className="dark down div row justify-content-center">
+      <UserNavbar />
+
+      <div className="filter col-10 row justify-content-center shadow bg-body rounded">
+        {key !== "" && (
+          <button onClick={() => fil("")} className="filterButton col-2">
+            All
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link to="/">
-                  <p class="nav-link" aria-current="page">
-                    Home
-                  </p>
-                </Link>
-              </li>
-              <li class="nav-item">
-                <p class="nav-link active">Shop</p>
-              </li>
-            </ul>
-            <form class="searchBar d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={(e) => setInput(e.target.value)}
-              />
-              {role === "user" && (
-                <Link to="/history">
-                  <img src={historyIcon} width="30px" alt="history" />
-                </Link>
-              )}
-            </form>
-          </div>
-        </div>
-      </nav>
-      <div className="row">
-        <div className="col-2">
-          <div className="leftd">
-            <p>FEATURED</p>
-            <ul>
-              <li>
-                <p>T-SHIRT</p>
-              </li>
-              <li>
-                <p>JEANS</p>
-              </li>
-              <li>
-                <p>HAT</p>
-              </li>
-              <li>
-                <p>SHOES</p>
-              </li>
-              <li>
-                <p>JACKET</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="center col-8">
-          <div class="row">
-            {data &&
-              data
-                .filter((e) => {
-                  if (Input === "") {
-                    return e;
-                  } else {
-                    return e.name.toLowerCase().includes(Input.toLowerCase());
-                  }
-                })
-                .map((e, index) => {
-                  console.log(e.images);
-                  return (
-                    <div
-                      key={index}
-                      class="thumb col-4"
-                      onClick={() => toDetail(e.id)}
-                    >
-                      <Link to={`/product/${e.id}`}>
-                        {e.images.length > 0 && (
-                          <img
-                            className="img-thumbnail"
-                            src={e.images[0].url}
-                            width="145px"
-                            height="145px"
-                            alt="productImg"
-                          />
-                        )}
-                        {(e.images === null || e.images.length === 0) && (
-                          <img
-                            className="img-thumbnail"
-                            src={errImg}
-                            height="145px"
-                            width="145px"
-                            alt="productImg"
-                          />
-                        )}
-                        <h3>
+        )}
+        {key === "" && (
+          <button
+            onClick={() => fil("")}
+            className="adjust btn btn-dark  col-2"
+          >
+            All
+          </button>
+        )}
+        {key !== "T-Shirt" && (
+          <button onClick={() => fil("T-Shirt")} className="filterButton col-2">
+            T-Shirt
+          </button>
+        )}
+        {key === "T-Shirt" && (
+          <button
+            onClick={() => fil("T-Shirt")}
+            className="adjust btn btn-dark col-2"
+          >
+            T-Shirt
+          </button>
+        )}
+        {key !== "Jeans" && (
+          <button onClick={() => fil("Jeans")} className="filterButton col-2">
+            Jeans
+          </button>
+        )}
+        {key === "Jeans" && (
+          <button
+            onClick={() => fil("Jeans")}
+            className="adjust btn btn-dark col-2"
+          >
+            Jeans
+          </button>
+        )}
+        {key !== "Jacket" && (
+          <button onClick={() => fil("Jacket")} className="filterButton col-2">
+            Jacket
+          </button>
+        )}
+        {key === "Jacket" && (
+          <button
+            onClick={() => fil("Jacket")}
+            className="adjust btn btn-dark col-2"
+          >
+            Jacket
+          </button>
+        )}
+        {key !== "Hat" && (
+          <button onClick={() => fil("Hat")} className="filterButton col-2">
+            Hat
+          </button>
+        )}
+        {key === "Hat" && (
+          <button
+            onClick={() => fil("Hat")}
+            className="adjust btn btn-dark col-2"
+          >
+            Hat
+          </button>
+        )}
+        {key !== "Shoes" && (
+          <button onClick={() => fil("Shoes")} className="filterButton col-2">
+            Shoes
+          </button>
+        )}
+        {key === "Shoes" && (
+          <button
+            onClick={() => fil("Shoes")}
+            className="adjust btn btn-dark col-2"
+          >
+            Shoes
+          </button>
+        )}
+      </div>
+      <div className="col-11 row d-flex justify-content-start">
+        {data &&
+          data
+            .sort(
+              (a, b) =>
+                new moment(b.created_at).format("YYYYMMDDhmm") -
+                new moment(a.created_at).format("YYYYMMDDhmm")
+            )
+            .filter((e) => {
+              if (key === "") {
+                return e;
+              } else {
+                return e.chategory === key;
+              }
+            })
+            .map((e, index) => {
+              return (
+                <a
+                  key={index}
+                  class="col-2 "
+                  onClick={() => toDetail(e.id)}
+                  href={`/product/${e.id}`}
+                >
+                  <Card
+                    className="card shadow bg-body rounded"
+                    style={{
+                      width: "170px",
+                      border: "none",
+                    }}
+                  >
+                    <Card.Img
+                      className="img"
+                      variant="top"
+                      src={e.images[0].url}
+                    />
+                    <Card.Body>
+                      <Card.Title className="cardtitle">{e.name}</Card.Title>
+                      <Card.Text className="a cardtitle">
+                        IDR{" "}
+                        {e.discount
+                          .toString()
+                          .split("")
+                          .reverse()
+                          .join("")
+                          .match(/\d{1,3}/g)
+                          .join(".")
+                          .split("")
+                          .reverse()
+                          .join("")}
+                      </Card.Text>
+                      <Card.Text className="price cardtitle">
+                        <s>
                           IDR{" "}
-                          {e.discount
+                          {e.price
                             .toString()
                             .split("")
                             .reverse()
@@ -144,36 +163,15 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                             .split("")
                             .reverse()
                             .join("")}
-                        </h3>
-                        <p>{e.name}</p>
-                      </Link>
-                    </div>
-                  );
-                })}
-          </div>
-        </div>
-        <div className="col-2">
-          <div class="rightd">
-            <p>ALL</p>
-            <ul>
-              <li>
-                <p>FILTER 1</p>
-              </li>
-              <li>
-                <p>FILTER 2</p>
-              </li>
-              <li>
-                <p>FILTER 3</p>
-              </li>
-              <li>
-                <p>FILTER 4</p>
-              </li>
-              <li>
-                <p>FILTER 5</p>
-              </li>
-            </ul>
-          </div>
-        </div>
+                        </s>
+                        {"  "}
+                        20% OFF
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </a>
+              );
+            })}
       </div>
     </div>
   );
@@ -200,6 +198,11 @@ const mapDispatchtoProps = (dispatch) => ({
         value: response.data.data,
       })
     ),
+  // fil: (val) =>
+  //   dispatch({
+  //     type: "FILTER",
+  //     value: val,
+  //   }),
 });
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(ListProduct);

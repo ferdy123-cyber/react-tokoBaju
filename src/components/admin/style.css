@@ -53,6 +53,7 @@
 .minMrgin img {
   width: 100px;
   height: 100px;
+  object-fit: contain;
 }
 
 .minMrgin .n {
@@ -133,6 +134,7 @@
 .uplProses {
   width: 100px;
   height: 100px;
+  object-fit: contain;
 }
 
 .uplProses img {
@@ -140,6 +142,7 @@
   height: 30px;
   position: absolute;
   top: 35px;
+  object-fit: contain;
 }
 
 .sizeBtn {
@@ -164,4 +167,97 @@
 
 .btnAdd {
   width: 100%;
+}
+
+.select {
+  margin-bottom: -15px;
+}
+
+.set {
+  height: 40px;
+}
+
+.bgc {
+  margin-right: 30px;
+}
+
+.select1 {
+  margin-left: 70px;
+}
+
+.ed1 {
+  margin-top: 150px;
+}
+
+.img-thumbnail {
+  object-fit: contain;
+}
+
+.cont {
+  margin-top: 110px;
+}
+
+.cont .ttl {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.bdy {
+  border-radius: 10px;
+}
+
+.usrId {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tgl {
+  text-align: right;
+  font-weight: normal;
+}
+
+.imgOrder {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.ttlOrder {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.prc2 {
+  font-weight: lighter;
+  margin-top: -5px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 13px;
+}
+
+.bordr {
+  border-right: rgba(0, 0, 0, 0.2) solid 2px;
+  margin-right: 15px;
+  margin-top: 10px;
+}
+
+.prc3 {
+  margin-left: -10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.prc4 {
+  margin-left: -10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.proced {
+  font-size: 12px;
+  padding: 4px 30px;
+}
+
+.hgt {
 }
