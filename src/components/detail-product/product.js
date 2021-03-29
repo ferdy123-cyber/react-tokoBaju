@@ -2,10 +2,7 @@ import "../detail-product/product.css";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Carousel } from "react-bootstrap";
 import UserNavbar from "../navbar/usernavbar";
-import { ShopWindow } from "react-bootstrap-icons";
-
 const Product = (props) => {
   const {
     getTransactionById,
@@ -153,194 +150,12 @@ const Product = (props) => {
                   </button>
                 );
               })}
-            {/* {key !== "" && (
-              <button onClick={() => fil("")} className="filterButton col-2">
-                All
-              </button>
-            )}
-            {key === "" && (
-              <button
-                onClick={() => fil("")}
-                className="adjust btn btn-dark  col-2"
-              >
-                All
-              </button>
-            )}
-            {key !== "T-Shirt" && (
-              <button
-                onClick={() => fil("T-Shirt")}
-                className="filterButton col-2"
-              >
-                T-Shirt
-              </button>
-            )}
-            {key === "T-Shirt" && (
-              <button
-                onClick={() => fil("T-Shirt")}
-                className="adjust btn btn-dark col-2"
-              >
-                T-Shirt
-              </button>
-            )}
-            {key !== "Jeans" && (
-              <button
-                onClick={() => fil("Jeans")}
-                className="filterButton col-2"
-              >
-                Jeans
-              </button>
-            )}
-            {key === "Jeans" && (
-              <button
-                onClick={() => fil("Jeans")}
-                className="adjust btn btn-dark col-2"
-              >
-                Jeans
-              </button>
-            )}
-            {key !== "Jacket" && (
-              <button
-                onClick={() => fil("Jacket")}
-                className="filterButton col-2"
-              >
-                Jacket
-              </button>
-            )}
-            {key === "Jacket" && (
-              <button
-                onClick={() => fil("Jacket")}
-                className="adjust btn btn-dark col-2"
-              >
-                Jacket
-              </button>
-            )}
-            {key !== "Hat" && (
-              <button onClick={() => fil("Hat")} className="filterButton col-2">
-                Hat
-              </button>
-            )}
-            {key === "Hat" && (
-              <button
-                onClick={() => fil("Hat")}
-                className="adjust btn btn-dark col-2"
-              >
-                Hat
-              </button>
-            )}
-            {key !== "Shoes" && (
-              <button
-                onClick={() => fil("Shoes")}
-                className="filterButton col-2"
-              >
-                Shoes
-              </button>
-            )}
-            {key === "Shoes" && (
-              <button
-                onClick={() => fil("Shoes")}
-                className="adjust btn btn-dark col-2"
-              >
-                Shoes
-              </button>
-            )} */}
           </div>
           <hr className="col-12" />
           <p className=" ctr col-12">Chategory: {detailProduct.chategory}</p>
           <p className=" ctr col-12">{detailProduct.description}</p>
         </div>
       </div>
-      {/* <div className="deskripsi row d-flex justify-content-center">
-        <div className="left col-3">
-          {detailProduct.images !== null && (
-            <Carousel>
-              {detailProduct.images &&
-                detailProduct.images.map((e) => {
-                  return (
-                    <Carousel.Item interval={1800}>
-                      <img
-                        className="editimg img-fluid d-block w-100 "
-                        src={e.url}
-                        alt="First slide"
-                      />
-                    </Carousel.Item>
-                  );
-                })}
-            </Carousel>
-          )}
-        </div>
-        <div className="right col-4">
-          <div className="storeName">ferdy's store</div>
-          <div className="rightDetail">
-            <p className="name-size">
-              {detailProduct.name} - {detailProduct.color}
-            </p>
-            <p className="sold">stock : {detailProduct.stock}</p>
-            <p className="diskon">
-              <b>
-                IDR{" "}
-                {detailProduct.discount
-                  .toString()
-                  .split("")
-                  .reverse()
-                  .join("")
-                  .match(/\d{1,3}/g)
-                  .join(".")
-                  .split("")
-                  .reverse()
-                  .join("")}
-              </b>
-            </p>
-            <p className="normal">
-              <del>
-                IDR{" "}
-                {detailProduct.price
-                  .toString()
-                  .split("")
-                  .reverse()
-                  .join("")
-                  .match(/\d{1,3}/g)
-                  .join(".")
-                  .split("")
-                  .reverse()
-                  .join("")}
-              </del>
-            </p>
-            <div className="lorem1">
-              <p>{detailProduct.description}</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-3">
-          <div class="card text-dark bg-light mb-3">
-            <div class="card-header">Variant</div>
-            <div class="card-body">
-              <p className="size">
-                Size :
-                <select className="size">
-                  {detailProduct.sizes &&
-                    detailProduct.sizes.map((e, index) => {
-                      return <option value="medium">{e.size}</option>;
-                    })}
-                </select>
-              </p>
-              <div className="row d-flex justify-content-center">
-                <button
-                  onClick={() =>
-                    createTransaction({
-                      status: "Pending",
-                      total_payment: 0,
-                    })
-                  }
-                  class="loginbtn2 btn btn-dark col-5"
-                  type="submit"
-                >
-                  Add to chart
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       {localStorage.getItem("role") === "user" && (
         <div className="row d-flex justify-content-end">
           <div className="col-5 row d-flex justify-content-center">

@@ -54,6 +54,7 @@ const OrderComplete = ({
                         return (
                           <div className="bordr col-12 row d-flex justify-content-start">
                             <img
+                              alt="..."
                               className="imgOrder col-3 "
                               src={data
                                 .filter((data) => data.id === val.product_id)

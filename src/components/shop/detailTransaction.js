@@ -69,6 +69,7 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
                       return (
                         <div className="topBdr bordr col-12 row d-flex justify-content-start">
                           <img
+                            alt="..."
                             className="imgOrder col-3 "
                             src={data
                               .filter((data) => data.id === val.product_id)

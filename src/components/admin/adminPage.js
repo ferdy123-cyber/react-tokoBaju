@@ -19,7 +19,6 @@ const AdminPage = ({ data, getProduct, allTransaction, getAllTransaction }) => {
   const newOrder = allTransaction.filter((e) => e.status === "Paid");
   const orderComplete = allTransaction.filter((e) => e.status === "Success");
   const orderComplain = allTransaction.filter((e) => e.status === "Canceling");
-  const orderCanceled = allTransaction.filter((e) => e.status === "Canceled");
   const saldo = orderComplete
     .map((e) => e.total_payment)
     .reduce((a, b) => a + b, 0);
