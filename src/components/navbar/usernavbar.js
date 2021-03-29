@@ -110,9 +110,9 @@ const UserNavbar = ({
               </NavDropdown.Item>
 
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/seller/my-product">
+              {/* <NavDropdown.Item href="/seller/my-product">
                 Chat <span class="bdg3 badge bg-danger">4</span>
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
             </NavDropdown>
           )}
 
