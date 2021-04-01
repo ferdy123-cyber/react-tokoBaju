@@ -53,3 +53,50 @@
   margin-top: 110px;
   margin-right: 10px;
 }
+
+.contact {
+  margin-top: 70px;
+}
+
+.cntcName {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: -2px;
+}
+
+.newChat {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.55);
+  margin-bottom: -2px;
+}
+
+.lst {
+  margin-left: 16px;
+}
+
+.searchContact {
+  position: sticky;
+  top: 83px;
+  background-color: white;
+  z-index: 89;
+  margin-bottom: 15px;
+}
+
+.Chatss {
+  margin-top: 90px;
+}
+
+.listchat {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+.send1 {
+  position: fixed;
+  width: 900px;
+  bottom: 20px;
+}
+
+.timeChat {
+  font-size: 10px;
+}

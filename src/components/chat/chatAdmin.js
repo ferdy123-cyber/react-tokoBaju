@@ -43,9 +43,86 @@ const AdminChat = ({
   };
   console.log(chatId);
   return (
-    <div className="row d-flex justify-content-end">
+    <div className="row d-flex justify-content-center ">
       <UserNavbar />
-      <div className="listChat col-3">
+      <div className="contact col-3 row ">
+        <div className="searchContact col-12">
+          <input className=" form-control" />
+        </div>
+        <div className="col-12 row">
+          <ul class="lst list-group list-group-flush col-12">
+            {roomChat.map((e) => {
+              return (
+                <li onClick={() => setChatId(e.id)} class="list-group-item">
+                  <p className="cntcName">
+                    {user
+                      .filter((val) => val.id === e.user_id)
+                      .map((e) => e.full_name)}
+                  </p>
+                  <p className="newChat">hallo</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+      <div className="Chatss col-8">
+        {chatId !== "" &&
+          chat
+            .filter((e) => e.chat_id === chatId)
+            .sort(
+              (a, b) =>
+                new moment(a.updatedAt).format("YYYYMMDDhhmmss") -
+                new moment(b.updatedAt).format("YYYYMMDDhhmmss")
+            )
+            .map((e) => {
+              return (
+                <div class="list-group">
+                  {localStorage.getItem("name") === e.user_name && (
+                    <p
+                      type="button"
+                      class="listchat textKanan list-group-item list-group-item-action"
+                    >
+                      {e.chat}{" "}
+                      <sub className="timeChat">
+                        {moment(e.createdAt).format("hh:mm")}
+                      </sub>
+                    </p>
+                  )}
+                  {localStorage.getItem("name") !== e.user_name && (
+                    <p
+                      type="button"
+                      class="listchat list-group-item list-group-item-action"
+                    >
+                      {e.chat}{" "}
+                      <sub className="timeChat">
+                        {moment(e.createdAt).format("hh:mm")}
+                      </sub>
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+        <div className="send1 row">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="col-10 form-control"
+          />
+          <button
+            onClick={() =>
+              addChat({
+                chat_id: chatId,
+                chat: input,
+              })
+            }
+            className="col-2 btn btn-secondary"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+      {/* <div className="listChat col-3">
         <ul class="list-group">
           {roomChat.map((e) => {
             return (
@@ -120,7 +197,7 @@ const AdminChat = ({
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
