@@ -1,0 +1,55 @@
+.blackScreen {
+  width: 100%;
+  background-color: aquamarine;
+  width: 100vh;
+}
+
+.full {
+  background-color: blue;
+}
+
+.inptChat {
+  margin-left: 40px;
+  margin-right: 10px;
+}
+
+.wht {
+  background-color: turquoise;
+  margin-top: -10px;
+  margin-left: 2px;
+}
+
+.chatLand {
+  background-color: white;
+  margin-left: 20px;
+  padding-left: 20px;
+  height: 400px;
+  max-height: 400px;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.chatResult {
+  background-color: white;
+  height: 550px;
+}
+
+.chatLand p {
+  font-size: 15px;
+}
+.chatLand span {
+  font-size: 10px;
+}
+
+.textKanan {
+  text-align: right;
+}
+
+.hgtP {
+  margin-bottom: 10px;
+}
+
+.listChat {
+  margin-top: 110px;
+  margin-right: 10px;
+}

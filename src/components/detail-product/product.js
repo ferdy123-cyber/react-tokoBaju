@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from "../navbar/usernavbar";
+import Comment from "./comment";
+import Chat from "../chat/chat";
 const Product = (props) => {
   const {
     getTransactionById,
@@ -13,6 +15,8 @@ const Product = (props) => {
     transaction,
     getTransaction,
     addOrder,
+    getRoomChat,
+    roomChat,
   } = props;
   useEffect(() => {
     toDetail(match.params.id);
@@ -22,14 +26,19 @@ const Product = (props) => {
     getTransaction();
   }, [getTransaction]);
 
-  console.log(transaction);
+  useEffect(() => {
+    getRoomChat();
+  }, [getRoomChat]);
+
+  console.log(roomChat.length);
+
   const trscPending =
     transaction && transaction.filter((e) => e.status === "Pending");
   console.log(trscPending.map((e) => e.orders).map((e) => e.product_qty));
   const createTransaction = (val) => {
     const trscPending =
       transaction && transaction.filter((e) => e.status === "Pending");
-    console.log(trscPending);
+
     if (trscPending.length < 1) {
       axios
         .post("http://localhost:8000/transaction", val, {
@@ -44,7 +53,6 @@ const Product = (props) => {
             product_id: detailProduct.id,
             product_qty: 1,
             transaction_id: response.data.data.id,
-            product_discount: 100000,
           });
           localStorage.setItem("trscId", response.data.data.id);
           getTransactionById(response.data.data.id);
@@ -76,6 +84,27 @@ const Product = (props) => {
 
   const updatePrice = (value) => {
     setCart(true);
+  };
+
+  const [chat, setChat] = useState(false);
+  console.log(detailProduct);
+
+  const addRoomchat = (newRoom) => {
+    axios
+      .post(`http://localhost:8000/chat`, newRoom, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        getRoomChat();
+        localStorage.setItem("imgProduct", detailProduct[0].url);
+        console.log("ok");
+        setChat(true);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
   };
 
   return (
@@ -159,7 +188,26 @@ const Product = (props) => {
       {localStorage.getItem("role") === "user" && (
         <div className="row d-flex justify-content-end">
           <div className="col-5 row d-flex justify-content-center">
-            <button className="btmBtn col-4 fixed-botttom">Chat seller</button>
+            {roomChat.length !== 0 && (
+              <button
+                onClick={() => setChat(true)}
+                className="btmBtn col-4 fixed-botttom"
+              >
+                Chat seller
+              </button>
+            )}
+            {roomChat.length === 0 && (
+              <button
+                onClick={() =>
+                  addRoomchat({
+                    receiver_id: "ae423aea-e680-4f2d-80bb-68fc709266ce",
+                  })
+                }
+                className="btmBtn col-4 fixed-botttom"
+              >
+                Chat seller
+              </button>
+            )}
             {cart === true && (
               <button
                 onClick={() =>
@@ -176,6 +224,8 @@ const Product = (props) => {
           </div>
         </div>
       )}
+      <Comment />
+      {chat === true && <Chat />}
     </div>
   );
 };
@@ -185,6 +235,7 @@ const mapStatetoProps = (props) => {
     detailProduct: props.product.detailProduct,
     transaction: props.product.transaction,
     transactionById: props.product.transactionById,
+    roomChat: props.product.roomChat,
   };
 };
 
@@ -196,6 +247,19 @@ const mapDispatchtoProps = (dispatch) => ({
         value: response.data.data,
       })
     ),
+  getRoomChat: () =>
+    axios
+      .get(`http://localhost:8000/chat`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) =>
+        dispatch({
+          type: "GET_ROOM_CHAT",
+          value: response.data.data,
+        })
+      ),
   getTransaction: () =>
     axios
       .get("http://localhost:8000/transaction", {

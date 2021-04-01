@@ -158,3 +158,46 @@
 .fixText {
   text-align: center;
 }
+
+.addRating {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inptRating {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+}
+
+.inpt {
+  border-radius: 15px;
+  margin-top: 35vh;
+  width: 100%;
+  height: 240px;
+  background-color: white;
+}
+
+.btnRating {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 30px;
+  height: 50px;
+  padding: -10px 0;
+}
+
+.btnRating span {
+  margin-bottom: -10px;
+}
+
+.btmbtn {
+  margin-bottom: 30px;
+  margin-right: 15px;
+}
+
+.payBtn {
+  margin-top: 45px;
+  font-size: 16px;
+  font-weight: 500;
+}

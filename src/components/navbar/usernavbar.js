@@ -40,6 +40,7 @@ const UserNavbar = ({
   const totalNotif = newOrder.length + complainOrder.length;
 
   const logedIn = localStorage.getItem("login");
+  console.log(allTransaction);
   return (
     <div className="row d-flex justify-content-center">
       <Navbar
@@ -89,11 +90,15 @@ const UserNavbar = ({
 
           {logedIn === "true" && localStorage.getItem("role") === "admin" && (
             <NavDropdown
+              onLoad={getAllTransaction}
               className=" username"
               title={
                 <span>
                   <img className="cart1" src={notif} width="25px" alt="cart" />
-                  <span class="bdg2 badge bg-danger">{totalNotif}</span>
+                  {totalNotif !== 0 && (
+                    <span class="bdg2 badge bg-danger">{totalNotif}</span>
+                  )}
+                  {totalNotif === 0 && <span class="bdg2"> </span>}
                 </span>
               }
               id="basic-nav-dropdown"
@@ -102,6 +107,7 @@ const UserNavbar = ({
                 New orders{" "}
                 <span class="bdg3 badge bg-danger">{newOrder.length}</span>
               </NavDropdown.Item>
+              <NavDropdown.Item href="/seller/chat">Chats</NavDropdown.Item>
 
               <NavDropdown.Divider />
               <NavDropdown.Item href="/seller/complain-order">

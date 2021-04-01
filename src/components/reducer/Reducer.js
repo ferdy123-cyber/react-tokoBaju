@@ -9,6 +9,7 @@ const initialState = {
         url: "",
       },
     ],
+    reviews: [],
   },
   newProduct: {
     id: "",
@@ -35,7 +36,14 @@ const initialState = {
       },
     ],
   },
+  review: [],
   allTransaction: [],
+  roomChat: [
+    {
+      id: "",
+    },
+  ],
+  chat: [],
 };
 
 const productReducer = (state = initialState, action) => {
@@ -104,6 +112,25 @@ const productReducer = (state = initialState, action) => {
     return {
       ...state,
       data: filter,
+    };
+  }
+  if (action.type === "GET_REVIEW") {
+    return {
+      ...state,
+      review: action.value,
+    };
+  }
+  if (action.type === "GET_ROOM_CHAT") {
+    return {
+      ...state,
+      roomChat: action.value,
+    };
+  }
+
+  if (action.type === "GET_ALL_CHAT") {
+    return {
+      ...state,
+      chat: action.value,
     };
   }
 

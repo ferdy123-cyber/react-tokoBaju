@@ -1,7 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap/dist/js/bootstrap.min.js";
 import AdminRoute from "./components/adminRoute";
 import UserRoute from "./components/userRouter";
 import Home from "./components/home/home";
@@ -21,6 +22,7 @@ import NewOrder from "./components/admin/newOrder";
 import OrderComplete from "./components/admin/OrderComplete";
 import DetailTransaction from "./components/shop/detailTransaction";
 import complainOrder from "./components/admin/orderComplain";
+import AdminChat from "./components/chat/chatAdmin";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <AdminRoute component={AddProduct} path="/seller/add-product" exact />
         <AdminRoute component={MyProduct} path="/seller/my-product" exact />
         <AdminRoute component={Edit} path="/seller/my-product/:id" exact />
+        <AdminRoute component={AdminChat} path="/seller/chat" exact />
+
         <AdminRoute
           component={complainOrder}
           path="/seller/complain-order"

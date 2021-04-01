@@ -25,6 +25,12 @@ const ComplainOrder = ({
   const complainOrder =
     allTransaction && allTransaction.filter((e) => e.status === "Canceling");
 
+  const arr = complainOrder.map((e) => moment(e.updated_at).format("lll"));
+  console.log(
+    arr.sort((a, b) => {
+      return moment(a.updated_at).diff(b.updated_at);
+    })
+  );
   const cancel = (val) => {
     axios
       .patch("http://localhost:8000/transaction/", val, {
@@ -54,10 +60,11 @@ const ComplainOrder = ({
           complainOrder
             .sort(
               (a, b) =>
-                new moment(b.updated_at).format("YYYYMMDDhmmss") -
-                new moment(a.updated_at).format("YYYYMMDDhmmss")
+                new moment(b.updated_at).format("YYYYMMDDhhmmss") -
+                new moment(a.updated_at).format("YYYYMMDDhhmmss")
             )
             .map((e) => {
+              console.log(new moment(e.updated_at).format("YYYYMMDD"));
               return (
                 <div className="bdy col-9 row d-flex justify-content-center shadow p-3 mb-5 bg-body">
                   <div className="col-12 row">
@@ -68,7 +75,7 @@ const ComplainOrder = ({
                       | {e.user_id}
                     </p>
                     <p className="tgl usrId col-6">
-                      {moment(e.updated_at).format("lll")}
+                      {moment(e.updated_at).format("YYYY-MM-DD hh:mm")}
                     </p>
                     <div className="col-10 row">
                       {e.orders.map((val) => {

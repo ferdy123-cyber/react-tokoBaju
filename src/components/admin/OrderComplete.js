@@ -33,8 +33,8 @@ const OrderComplete = ({
           newOrder
             .sort(
               (a, b) =>
-                new moment(b.updated_at).format("YYYYMMDDhmmss") -
-                new moment(a.updated_at).format("YYYYMMDDhmmss")
+                new moment(b.updated_at).format("YYYYMMDDhhmmss") -
+                new moment(a.updated_at).format("YYYYMMDDhhmmss")
             )
             .map((e) => {
               return (

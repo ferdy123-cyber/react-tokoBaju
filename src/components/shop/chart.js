@@ -91,96 +91,95 @@ const Chart = (props) => {
       {transactionById.orders.length !== 0 && (
         <div className="chartLand row d-flex justify-content-start">
           <div className="marginR col-7">
-            {transactionById.orders &&
-              transactionById.orders
-                .sort(
-                  (a, b) =>
-                    new moment(b.createdAt).format("YYYYMMDDhmm") -
-                    new moment(a.createddAt).format("YYYYMMDDhmm")
-                )
-                .map((e, index) => {
-                  console.log(
-                    moment(e.createdAt).format("MMMM Do YYYY, h:mm:ss a")
-                  );
-                  return (
-                    <div className="listCart row shadow p-3 mb-5 bg-body rounded">
-                      <div className="col-2">
-                        <img
-                          className="cartImage"
-                          src={data
-                            .filter((val) => val.id === e.product_id)
-                            .map((e) => e.images[0].url)}
-                          width="100px"
-                          height="100px"
-                          alt="order-img"
-                        />
-                      </div>
-                      <div className="col-8">
-                        <p className="prdName">
-                          {data
-                            .filter((val) => val.id === e.product_id)
-                            .map((e) => e.name)}
-                        </p>
-                        <p className="prdPrice">
-                          <b>
-                            IDR{" "}
-                            {e.product_discount
-                              .toString()
-                              .split("")
-                              .reverse()
-                              .join("")
-                              .match(/\d{1,3}/g)
-                              .join(".")
-                              .split("")
-                              .reverse()
-                              .join("")}
-                          </b>
-                        </p>
-                      </div>
-                      <div className="bottomCart col d-flex justify-content-end">
-                        {e.product_qty > 1 && (
-                          <img
-                            onClick={() =>
-                              minOrder({
-                                product_id: e.product_id,
-                                product_qty: -1,
-                                transaction_id: transactionById.id,
-                              })
-                            }
-                            src={min}
-                            width="25px"
-                            height="25px"
-                            alt="min"
-                          />
-                        )}
-                        {e.product_qty === 1 && (
-                          <img src={min} width="25px" height="25px" alt="min" />
-                        )}
-
-                        <span>{e.product_qty}</span>
+            {transactionById.orders
+              .sort(
+                (a, b) =>
+                  new moment(b.createdAt).format("YYYYMMDDhhmmss") -
+                  new moment(a.createddAt).format("YYYYMMDDhhmmss")
+              )
+              .map((e, index) => {
+                console.log(
+                  moment(e.createdAt).format("MMMM Do YYYY, h:mm:ss a")
+                );
+                return (
+                  <div className="listCart row shadow p-3 mb-5 bg-body rounded">
+                    <div className="col-2">
+                      <img
+                        className="cartImage"
+                        src={data
+                          .filter((val) => val.id === e.product_id)
+                          .map((e) => e.images[0].url)}
+                        width="100px"
+                        height="100px"
+                        alt="order-img"
+                      />
+                    </div>
+                    <div className="col-8">
+                      <p className="prdName">
+                        {data
+                          .filter((val) => val.id === e.product_id)
+                          .map((e) => e.name)}
+                      </p>
+                      <p className="prdPrice">
+                        <b>
+                          IDR{" "}
+                          {e.product_discount
+                            .toString()
+                            .split("")
+                            .reverse()
+                            .join("")
+                            .match(/\d{1,3}/g)
+                            .join(".")
+                            .split("")
+                            .reverse()
+                            .join("")}
+                        </b>
+                      </p>
+                    </div>
+                    <div className="bottomCart col d-flex justify-content-end">
+                      {e.product_qty > 1 && (
                         <img
                           onClick={() =>
-                            addOrder({
+                            minOrder({
                               product_id: e.product_id,
-                              product_qty: 1,
+                              product_qty: -1,
                               transaction_id: transactionById.id,
                             })
                           }
-                          alt="increase"
-                          src={add}
+                          src={min}
                           width="25px"
                           height="25px"
+                          alt="min"
                         />
-                        <button
-                          onClick={() => deleteOrder(e.id)}
-                          className="rmv btn btn-dark"
-                        >
-                          <p>Remove</p>
-                        </button>
-                      </div>
+                      )}
+                      {e.product_qty === 1 && (
+                        <img src={min} width="25px" height="25px" alt="min" />
+                      )}
+
+                      <span>{e.product_qty}</span>
+                      <img
+                        onClick={() =>
+                          addOrder({
+                            product_id: e.product_id,
+                            product_qty: 1,
+                            transaction_id: transactionById.id,
+                          })
+                        }
+                        alt="increase"
+                        src={add}
+                        width="25px"
+                        height="25px"
+                      />
+                      <button
+                        onClick={() => deleteOrder(e.id)}
+                        className="rmv btn btn-dark"
+                      >
+                        <p>Remove</p>
+                      </button>
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })}
           </div>
 
           <div className="paymentBox col-3">

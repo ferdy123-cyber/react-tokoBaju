@@ -222,3 +222,62 @@
   background-color: rgba(231, 240, 242, 1);
   border: solid 1px black;
 }
+
+.review {
+  margin-top: 30px;
+  height: 100%;
+}
+
+.review .ttl {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.usr {
+  margin-right: 10px;
+  padding-top: 10px;
+}
+
+.usr .name {
+  margin-left: -10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.usr .date {
+  font-size: 12px;
+  margin-left: -10px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
+  margin-top: -20px;
+}
+
+.commnt {
+  padding-top: 10px;
+}
+
+.commnt p {
+  margin-left: -12px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.rting {
+  margin-top: -15px;
+  margin-left: 20px;
+}
+
+.column {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
+  padding-bottom: 15px;
+}
+
+.emptyReview {
+  font-size: 17px;
+  margin-top: 20px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.3);
+}

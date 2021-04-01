@@ -1,8 +1,9 @@
 import "../shop/style.css";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import UserNavbar from "../navbar/usernavbar";
+import startIcon from "../../img/favourites.png";
 
 const History = ({ getTransaction, transaction, data, getProduct, match }) => {
   useEffect(() => {
@@ -11,6 +12,36 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
   useEffect(() => {
     getProduct();
   }, [getProduct]);
+
+  const [show, setShow] = useState(false);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(null);
+  const showInputRating = (id) => {
+    localStorage.setItem("product_id", id);
+    setShow(true);
+  };
+  console.log(comment);
+  console.log(rating);
+
+  const addReview = (review) => {
+    console.log(review);
+    axios
+      .post("http://localhost:8000/review", review, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setComment("");
+        setRating(null);
+        localStorage.removeItem("product_id");
+        setShow(false);
+        alert("success");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
 
   const cancel = (val) => {
     axios
@@ -24,7 +55,7 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
         getTransaction();
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.response.data.error);
       });
   };
 
@@ -95,6 +126,18 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
                                 .join("")}
                               )
                             </p>
+                            {e.status === "Success" && (
+                              <p className="prc2">
+                                <button
+                                  onClick={() =>
+                                    showInputRating(val.product_id)
+                                  }
+                                  className="addRating btn btn-light"
+                                >
+                                  give review
+                                </button>
+                              </p>
+                            )}
                           </p>
                         </div>
                       );
@@ -123,6 +166,140 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
             );
           })}
       </div>
+      {show === true && (
+        <div className="row">
+          <div className="inptRating col-12 row d-flex justify-content-center fixed-top">
+            <div className="inpt col-5 row ">
+              <div class="col-12 row d-flex justify-content-center">
+                {rating !== 5 && (
+                  <button
+                    onClick={() => setRating(5)}
+                    className="btnRating btn btn-light col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>5</span>
+                  </button>
+                )}
+                {rating === 5 && (
+                  <button
+                    onClick={() => setRating(5)}
+                    className="btnRating btn btn-secondary col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>5</span>
+                  </button>
+                )}
+                {rating !== 4 && (
+                  <button
+                    onClick={() => setRating(4)}
+                    className="btnRating btn btn-light col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>4</span>
+                  </button>
+                )}
+                {rating === 4 && (
+                  <button
+                    onClick={() => setRating(4)}
+                    className="btnRating btn btn-secondary col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>4</span>
+                  </button>
+                )}
+                {rating !== 3 && (
+                  <button
+                    onClick={() => setRating(3)}
+                    className="btnRating btn btn-light col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>3</span>
+                  </button>
+                )}
+                {rating === 3 && (
+                  <button
+                    onClick={() => setRating(3)}
+                    className="btnRating btn btn-secondary col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>3</span>
+                  </button>
+                )}
+                {rating !== 2 && (
+                  <button
+                    onClick={() => setRating(2)}
+                    className="btnRating btn btn-light col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>2</span>
+                  </button>
+                )}
+                {rating === 2 && (
+                  <button
+                    onClick={() => setRating(2)}
+                    className="btnRating btn btn-secondary col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>2</span>
+                  </button>
+                )}
+                {rating !== 1 && (
+                  <button
+                    onClick={() => setRating(1)}
+                    className="btnRating btn btn-light col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>1</span>
+                  </button>
+                )}
+                {rating === 1 && (
+                  <button
+                    onClick={() => setRating(1)}
+                    className="btnRating btn btn-secondary col-2"
+                  >
+                    <img src={startIcon} width="25px" alt="..." />{" "}
+                    <span>1</span>
+                  </button>
+                )}
+              </div>
+              <div class="col-12">
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="2"
+                />
+              </div>
+              <div className="col-12 row d-flex justify-content-end">
+                <button
+                  onClick={() => setShow(false)}
+                  className="btmbtn col-2 btn btn-danger"
+                >
+                  Cancel
+                </button>
+                {rating !== null && (
+                  <button
+                    onClick={() =>
+                      addReview({
+                        product_id: localStorage.getItem("product_id"),
+                        rating: rating,
+                        comment: comment,
+                      })
+                    }
+                    className="btmbtn col-2 btn btn-secondary"
+                  >
+                    Submit
+                  </button>
+                )}
+                {rating === null && (
+                  <button className="btmbtn col-2 btn btn-light">Submit</button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

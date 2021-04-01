@@ -11,14 +11,18 @@ const Payment = ({
   transaction,
   transactionById,
   match,
+  data,
+  getProduct,
 }) => {
-  const load = () => {
-    getTransaction();
-  };
-  console.log(transaction);
   useEffect(() => {
-    getTransactionById(match.params.id);
-  }, [getTransactionById, match.params.id]);
+    getTransaction();
+  }, [getTransaction]);
+  useEffect(() => {
+    getProduct();
+  }, [getProduct]);
+  console.log(transaction);
+
+  console.log(transactionById);
 
   const payNow = (val) => {
     axios
@@ -29,58 +33,113 @@ const Payment = ({
       })
       .then((res) => {
         alert("success payment");
-        getTransactionById(localStorage.getItem("trscId"));
+        getTransaction();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const detailTransaction = transaction.filter((e) => e.id === match.params.id);
+
   return (
-    <div onLoad={load} className="down">
+    <div>
       <UserNavbar />
-      <div className="paymnt row d-flex justify-content-center ">
-        <div className="shadow p-3 mb-5 bg-body rounded col-5">
-          <div className="e row d-flex justify-content-center">
-            <h4>Payment detail</h4>
-          </div>
-          <div className="e row justify-content-center">
-            <h5 className="col-4">Total : </h5>
-            <h5 className="prc col-6">
-              IDR{" "}
-              {transactionById.total_payment
-                .toString()
-                .split("")
-                .reverse()
-                .join("")
-                .match(/\d{1,3}/g)
-                .join(".")
-                .split("")
-                .reverse()
-                .join("")}
-            </h5>
-          </div>
-          <div className="e row justify-content-center">
-            <h5 className="col-4">Status : </h5>
-            <h5 className="prc col-6">{transactionById.status}</h5>
-          </div>
-          <Link to="/shop">
-            <div className="e row justify-content-center">
+      <div className="cont row d-flex justify-content-center ">
+        {detailTransaction.map((e) => {
+          return (
+            <div className="bdy col-9 row d-flex justify-content-center shadow p-3 mb-5 bg-body">
+              <p className="ttl col-12">Detail transactions</p>
+              <div className="stts col-12 row d-flex justify-content-start">
+                <div className="col-6 row">
+                  <p className="TID col-12">Transaction ID</p>
+                  <p className="ID col-12">{e.id}</p>
+                  <p className="TID col-12">Status</p>
+                  <p className="ID col-12">{e.status}</p>
+                </div>
+              </div>
+              <div className="col-12 row">
+                <p className="tgl usrId col-6"></p>
+                <div className="col-10 row">
+                  {e.orders.map((val) => {
+                    return (
+                      <div className="topBdr bordr col-12 row d-flex justify-content-start">
+                        <img
+                          alt="..."
+                          className="imgOrder col-3 "
+                          src={data
+                            .filter((data) => data.id === val.product_id)
+                            .map((a) => a.images[0].url)}
+                        />
+                        <p className="ttlOrder col-9">
+                          <p>
+                            {data
+                              .filter((data) => data.id === val.product_id)
+                              .map((a) => a.name)}
+                          </p>
+                          <p className="prc2">
+                            {val.product_qty} item (
+                            {val.product_discount
+                              .toString()
+                              .split("")
+                              .reverse()
+                              .join("")
+                              .match(/\d{1,3}/g)
+                              .join(".")
+                              .split("")
+                              .reverse()
+                              .join("")}
+                            )
+                          </p>
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="bdrHgt hgt col-2 row d-flex justify-content-center align-items-center">
+                  <div className="col row d-flex justify-content-start">
+                    <p className="prc3 col-12">Total price</p>
+                    <p className="prc4 col-12">
+                      IDR
+                      {e.total_payment
+                        .toString()
+                        .split("")
+                        .reverse()
+                        .join("")
+                        .match(/\d{1,3}/g)
+                        .join(".")
+                        .split("")
+                        .reverse()
+                        .join("")}
+                    </p>
+                  </div>
+                </div>
+              </div>
               <button
                 onClick={() =>
                   payNow({
-                    id: transactionById.id,
+                    id: e.id,
                     status: "Paid",
                   })
                 }
-                className="btn btn-dark col-5"
+                className="payBtn btn btn-secondary col-12"
               >
-                Pay now
+                Pay (
+                {e.total_payment
+                  .toString()
+                  .split("")
+                  .reverse()
+                  .join("")
+                  .match(/\d{1,3}/g)
+                  .join(".")
+                  .split("")
+                  .reverse()
+                  .join("")}
+                )
               </button>
-              <button className="btn btn-dark col-5">Go to shop</button>
             </div>
-          </Link>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -90,6 +149,7 @@ const mapStatetoProps = (props) => {
   return {
     transaction: props.product.transaction,
     transactionById: props.product.transactionById,
+    data: props.product.data,
   };
 };
 
@@ -107,6 +167,13 @@ const mapDispatchtoProps = (dispatch) => ({
           value: response.data.data,
         })
       ),
+  getProduct: () =>
+    axios.get("http://localhost:8000/product").then((response) =>
+      dispatch({
+        type: "GET_PRODUCT",
+        value: response.data.data,
+      })
+    ),
   getTransaction: () =>
     axios
       .get("http://localhost:8000/transaction", {
