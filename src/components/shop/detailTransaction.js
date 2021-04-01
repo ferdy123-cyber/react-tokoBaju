@@ -77,7 +77,6 @@ const History = ({ getTransaction, transaction, data, getProduct, match }) => {
                     <p className="ID col-12">{e.status}</p>
                   </div>
                   <div className="kanan col-6 row d-flex justify-content-end">
-                    <button className="btn btn-dark">Chat seller</button>
                     {e.status === "Paid" && (
                       <button
                         onClick={() =>
