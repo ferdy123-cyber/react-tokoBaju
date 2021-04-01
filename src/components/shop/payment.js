@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "../shop/style.css";
 import { connect } from "react-redux";
 import axios from "axios";
